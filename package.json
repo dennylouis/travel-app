@@ -8,6 +8,12 @@
     "start": "next start"
   },
   "dependencies": {
+    "@hapi/iron": "^6.0.0",
+    "@sendgrid/mail": "^7.4.0",
+    "bcrypt": "^5.0.0",
+    "cookie": "^0.4.1",
+    "formik": "^2.2.6",
+    "mongodb": "^3.6.3",
     "next": "10.0.4",
     "react": "17.0.1",
     "react-dom": "17.0.1"
