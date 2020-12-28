@@ -32,7 +32,7 @@ export default function Signup() {
               onBlur={props.handleBlur}
               value={props.values.firstName}
             />
-            {props.errors.firstName && <div id="feedback">{props.errors.firstName}</div>}
+            {props.errors.firstName && <div id="feedback">sdf{props.errors.firstName}</div>}
             <label>Last Name</label>
             <input
               type="text"
