@@ -1,5 +1,8 @@
 ## To-do
 
+- [x] Get Sendgrid email sending
+- [x] Create confirm email api endpoint
+- [ ] Include link in confirmation email
 - [ ] Create log in flow
 - [ ] Create authenticated route to retrieve activities
 - [ ] Create password reset functionality
