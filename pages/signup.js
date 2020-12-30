@@ -1,7 +1,10 @@
+import { useRouter } from "next/router";
 import { Formik } from "formik";
 
 export default function Signup() {
-  async function createUser(values, actions) {
+  const router = useRouter();
+
+  async function handleSubmit(values) {
     const response = await fetch("/api/users/create", {
       method: "POST",
       headers: {
@@ -10,9 +13,9 @@ export default function Signup() {
       body: JSON.stringify({ ...values }),
     });
 
-    const data = await response.json();
-    console.log(data.user);
-    return data.user;
+    if (response.ok) {
+      return router.push("/private");
+    }
   }
 
   return (
@@ -20,7 +23,7 @@ export default function Signup() {
       <h1>Sign up</h1>
       <Formik
         initialValues={{ firstName: "", lastName: "", email: "", password: "" }}
-        onSubmit={createUser}
+        onSubmit={handleSubmit}
       >
         {(props) => (
           <form onSubmit={props.handleSubmit}>
