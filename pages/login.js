@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
+import Input from "../components/Input/Input";
 
 export default function Login() {
   const router = useRouter();
@@ -19,31 +20,19 @@ export default function Login() {
   }
 
   return (
-    <div>
+    <div style={{ width: 600, padding: 80 }}>
       <h1>Log in</h1>
       <Formik initialValues={{ email: "", password: "" }} onSubmit={handleSubmit}>
         {(props) => (
-          <form onSubmit={props.handleSubmit}>
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              onChange={props.handleChange}
-              onBlur={props.handleBlur}
-              value={props.values.email}
-            />
+          <Form>
+            <Input name="email" type="email" label="Email" placeholder="Email Address" />
             {props.errors.email && <div id="feedback">{props.errors.email}</div>}
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              onChange={props.handleChange}
-              onBlur={props.handleBlur}
-              value={props.values.password}
-            />
+
+            <Input name="password" type="password" label="Password" placeholder="••••••••••" />
             {props.errors.password && <div id="feedback">{props.errors.password}</div>}
+
             <button type="submit">Submit</button>
-          </form>
+          </Form>
         )}
       </Formik>
     </div>

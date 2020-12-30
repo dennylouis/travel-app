@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { createToken } from "../../../lib/tokenHelpers";
-import CookieService from "../../../lib/cookie";
+import { setTokenCookie } from "../../../lib/cookie";
 import { createUser } from "../../../lib/dbHelpers";
 import sgMail from "../../../lib/sendGrid";
 
@@ -28,7 +28,7 @@ export default async (req, res) => {
 
     // Create an authentication token and send it as a cookie
     const token = await createToken(user);
-    CookieService.setTokenCookie(res, token);
+    setTokenCookie(res, token);
 
     res.status(201);
     res.json({ user });

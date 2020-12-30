@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { getUser } from "../../../lib/dbHelpers";
 import { createToken } from "../../../lib/tokenHelpers";
-import CookieService from "../../../lib/cookie";
+import { setTokenCookie } from "../../../lib/cookie";
 
 export default async (req, res) => {
   if (req.method !== "POST") return res.status(405).end();
@@ -21,7 +21,7 @@ export default async (req, res) => {
 
     // Create a new token and send it as a cookie
     const token = await createToken(user);
-    CookieService.setTokenCookie(res, token);
+    setTokenCookie(res, token);
 
     res.status(200).json({
       user: {

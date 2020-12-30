@@ -1,12 +1,12 @@
-import Iron from "@hapi/iron";
-import CookieService from "../../../lib/cookie";
+import { readToken } from "../../../lib/tokenHelpers";
+import { getAuthToken } from "../../../lib/cookie";
 
 export default async (req, res) => {
   try {
-    const token = CookieService.getAuthToken(req);
+    const token = getAuthToken(req);
 
     if (token) {
-      const user = await Iron.unseal(token, process.env.ENCRYPTION_SECRET, Iron.defaults);
+      const user = await readToken(token);
       res.status(200).json(user);
     } else {
       throw new Error("You're not logged in");
