@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { readToken } from "../lib/tokenHelpers";
+import { getActivities } from "../lib/dbHelpers";
 import { getAuthToken } from "../lib/cookie";
 import Logout from "../components/Logout/Logout";
+import ActivityCard from "../components/ActivityCard/ActivityCard";
 
-export default function Private({ user }) {
+export default function Private({ user, activities }) {
   const router = useRouter();
 
   useEffect(() => {
@@ -20,11 +22,17 @@ export default function Private({ user }) {
       <Logout />
       <h1>Welcome {user.firstName}</h1>
       {!user.emailConfirmed && <p>Your email address has not been confirmed</p>}
-      {user && (
-        <pre style={{ background: "#f0f0f0", padding: 16, borderRadius: 8 }}>
-          {JSON.stringify(user, null, 2)}
-        </pre>
-      )}
+
+      <h3>Activities</h3>
+      <div>
+        {activities.length > 0 ? (
+          activities.map((activity) => {
+            return <ActivityCard activity={activity} />;
+          })
+        ) : (
+          <p>No activities</p>
+        )}
+      </div>
     </div>
   );
 }
@@ -35,11 +43,14 @@ export async function getServerSideProps({ req }) {
 
     if (token) {
       const user = await readToken(token);
-      return { props: { user } };
+      const activities = await getActivities(user._id);
+
+      return { props: { user, activities: JSON.parse(JSON.stringify(activities)) } };
     } else {
       return { props: {} };
     }
   } catch (e) {
     console.log(e);
+    return { props: {} };
   }
 }
