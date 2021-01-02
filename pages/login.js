@@ -15,7 +15,7 @@ export default function Login() {
     });
 
     if (response.ok) {
-      return router.push("/private");
+      return router.push("/dashboard");
     }
   }
 

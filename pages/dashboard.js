@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { readToken } from "../lib/tokenHelpers";
-import { getActivities } from "../lib/dbHelpers";
+import { getTrips } from "../lib/dbHelpers";
 import { getAuthToken } from "../lib/cookie";
 import Logout from "../components/Logout/Logout";
-import ActivityCard from "../components/ActivityCard/ActivityCard";
+import TripCard from "../components/TripCard/TripCard";
 import CreateActivityForm from "../components/CreateActivityForm/CreateActivityForm";
 import Modal from "../components/Modal/Modal";
 
-export default function Private({ user, activities }) {
+export default function Dashboard({ user, trips }) {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
 
@@ -26,26 +26,29 @@ export default function Private({ user, activities }) {
         <CreateActivityForm />
       </Modal>
 
-      <div style={{ width: 600, padding: 80 }}>
+      <div style={{ width: "100%", padding: 80 }}>
         <Logout />
         <h1>Welcome {user.firstName}</h1>
         {!user.emailConfirmed && <p>Your email address has not been confirmed</p>}
 
-        <h3>Activities</h3>
-        <button onClick={() => setShowModal(true)}>Add new activity</button>
         <div>
-          {activities.length > 0 ? (
-            activities.map((activity) => {
-              return <ActivityCard key={activity._id} activity={activity} />;
+          <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+            <h2>Trips</h2>
+            <button onClick={() => setShowModal(true)}>Add new activity</button>
+          </div>
+
+          {trips.length > 0 ? (
+            trips.map((trip) => {
+              return <TripCard key={trip._id} trip={trip} />;
             })
           ) : (
-            <p>No activities</p>
+            <p>No trips</p>
           )}
         </div>
 
-        <pre style={{ background: "#f0f0f0", padding: 16, borderRadius: 8, overflow: "auto" }}>
+        {/* <pre style={{ background: "#f0f0f0", padding: 16, borderRadius: 8, overflow: "auto" }}>
           {JSON.stringify(user, null, 2)}
-        </pre>
+        </pre> */}
       </div>
     </>
   );
@@ -57,9 +60,9 @@ export async function getServerSideProps({ req }) {
 
     if (token) {
       const user = await readToken(token);
-      const activities = await getActivities(user._id);
+      const trips = await getTrips(user._id);
 
-      return { props: { user, activities: JSON.parse(JSON.stringify(activities)) } };
+      return { props: { user, trips: JSON.parse(JSON.stringify(trips)) } };
     } else {
       return { props: {} };
     }

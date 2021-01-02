@@ -15,7 +15,7 @@ export default function Signup() {
     });
 
     if (response.ok) {
-      return router.push("/private");
+      return router.push("/dashboard");
     }
   }
 
