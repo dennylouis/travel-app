@@ -26,7 +26,7 @@ export default function Dashboard({ user, trips }) {
         <CreateActivityForm />
       </Modal>
 
-      <div style={{ width: "100%", padding: 80 }}>
+      <div style={{ width: "100%", padding: "1rem" }}>
         <Logout />
         <h1>Welcome {user.firstName}</h1>
         {!user.emailConfirmed && <p>Your email address has not been confirmed</p>}
