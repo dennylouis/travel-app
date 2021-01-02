@@ -7,9 +7,11 @@ export default function ActivityCard({ activity }) {
       <img className={styles.image} src={image} />
       <div>
         <h3>{title}</h3>
-        <p>
-          {location.properties.name} • {location.properties.address}
-        </p>
+        {location && (
+          <p>
+            {location.properties.name} • {location.properties.address}
+          </p>
+        )}
       </div>
     </div>
   );

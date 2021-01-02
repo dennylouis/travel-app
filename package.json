@@ -12,12 +12,17 @@
     "@sendgrid/mail": "^7.4.0",
     "bcrypt": "^5.0.0",
     "cookie": "^0.4.1",
+    "downshift": "^6.0.10",
     "formik": "^2.2.6",
+    "framer-motion": "^3.1.1",
+    "luxon": "^1.25.0",
     "mongodb": "^3.6.3",
     "next": "10.0.4",
-    "next-iron-session": "^4.1.10",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "sass": "^1.32.0"
+    "react-dropzone": "^11.2.4",
+    "sass": "^1.32.0",
+    "slugify": "^1.4.6",
+    "swr": "^0.3.11"
   }
 }

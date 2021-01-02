@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { getUser } from "../../../lib/dbHelpers";
+import { getUserByEmail } from "../../../lib/dbHelpers";
 import { createToken } from "../../../lib/tokenHelpers";
 import { setTokenCookie } from "../../../lib/cookie";
 
@@ -11,7 +11,7 @@ export default async (req, res) => {
     const email = req.body.email.toLowerCase();
 
     // Get the user from the database based on the input email
-    const userResponse = await getUser(email);
+    const userResponse = await getUserByEmail(email);
     const user = JSON.parse(JSON.stringify(userResponse));
     if (!user) throw new Error(`We couldn't find an account for ${email}`);
 
