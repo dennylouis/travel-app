@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { getUserByEmail } from "../../../lib/dbHelpers";
+import { getUserByEmail, updateUserLastLogin } from "../../../lib/dbHelpers";
 import { createToken } from "../../../lib/tokenHelpers";
 import { setTokenCookie } from "../../../lib/cookie";
 
@@ -18,6 +18,7 @@ export default async (req, res) => {
     // Compare the input password to the stored password
     const valid = await bcrypt.compare(req.body.password, user.password);
     if (!valid) throw new Error("Invalid password");
+    updateUserLastLogin(user._id);
 
     // Create a new token and send it as a cookie
     const token = await createToken(user);

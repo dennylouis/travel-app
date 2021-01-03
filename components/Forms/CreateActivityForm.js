@@ -2,20 +2,21 @@ import { Formik, Form } from "formik";
 import Input from "../Input/Input";
 // import styles from "./CreateActivityForm.module.scss";
 
-export default function CreateActivityForm() {
+export default function CreateActivityForm({ trip_id }) {
+  console.log(trip_id);
   async function handleSubmit(values) {
     const response = await fetch("/api/activities/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...values }),
+      body: JSON.stringify({ ...values, trip_id }),
     });
   }
 
   const handleValidation = (values) => {
     const errors = {};
-    if (!values.title) errors.title = "Required";
+    if (!values.name) errors.name = "Required";
 
     return errors;
   };
