@@ -28,7 +28,7 @@ export default function TripPage({ user, trip }) {
         <CreateActivityForm />
       </Modal>
 
-      <div style={{ width: "100%", padding: 80 }}>
+      <div style={{ width: "100%", padding: "1.5rem" }}>
         <button onClick={() => router.back()}>Back</button>
         <button onClick={() => setShowModal(true)}>Add new activity</button>
         <h1>{name}</h1>
