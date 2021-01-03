@@ -1,6 +1,5 @@
 import { Formik, Form } from "formik";
 import Input from "../Input/Input";
-// import styles from "./CreateActivityForm.module.scss";
 
 export default function CreateTripForm() {
   async function handleSubmit(values) {
