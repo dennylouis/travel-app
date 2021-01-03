@@ -32,8 +32,8 @@ export default function CreateTripForm() {
             <Form>
               <Input name="name" type="text" label="Name" placeholder="Trip name" />
               <Input name="description" type="text" label="Description" placeholder="Description" />
-              <Input name="startDate" type="date" label="Start Date" placeholder="Notes" />
-              <Input name="endDate" type="date" label="End Date" placeholder="Notes" />
+              <Input name="startDate" type="date" label="Start Date" placeholder="Start Date" />
+              <Input name="endDate" type="date" label="End Date" placeholder="End Date" />
 
               <button type="submit" disabled={!props.isValid}>
                 Submit
