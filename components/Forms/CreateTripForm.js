@@ -2,9 +2,9 @@ import { Formik, Form } from "formik";
 import Input from "../Input/Input";
 // import styles from "./CreateActivityForm.module.scss";
 
-export default function CreateActivityForm() {
+export default function CreateTripForm() {
   async function handleSubmit(values) {
-    const response = await fetch("/api/activities/create", {
+    const response = await fetch("/api/trips/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -22,17 +22,17 @@ export default function CreateActivityForm() {
 
   return (
     <div>
-      <h1>Add new activity</h1>
+      <h1>New Trip</h1>
       <Formik
-        initialValues={{ title: "", notes: "", startDate: "", endDate: "" }}
+        initialValues={{ name: "", description: "", startDate: "", endDate: "" }}
         onSubmit={handleSubmit}
         validate={handleValidation}
       >
         {(props) => {
           return (
             <Form>
-              <Input name="title" type="text" label="Title" placeholder="Activity title" />
-              <Input name="notes" type="text" label="Notes" placeholder="Notes" />
+              <Input name="name" type="text" label="Name" placeholder="Trip name" />
+              <Input name="description" type="text" label="Description" placeholder="Description" />
               <Input name="startDate" type="date" label="Start Date" placeholder="Notes" />
               <Input name="endDate" type="date" label="End Date" placeholder="Notes" />
 

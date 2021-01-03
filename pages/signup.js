@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { Formik, Form } from "formik";
 import Input from "../components/Input/Input";
@@ -15,7 +16,7 @@ export default function Signup() {
     });
 
     if (response.ok) {
-      return router.push("/dashboard");
+      return router.push("/");
     }
   }
 
@@ -44,6 +45,12 @@ export default function Signup() {
           </Form>
         )}
       </Formik>
+      <p>
+        Already have an account?{" "}
+        <Link href="/login">
+          <a>Log in</a>
+        </Link>
+      </p>
     </div>
   );
 }
