@@ -8,7 +8,7 @@ import ActivityCard from "../../components/ActivityCard/ActivityCard";
 import CreateActivityForm from "../../components/Forms/CreateActivityForm";
 import Modal from "../../components/Modal/Modal";
 
-export default function Dashboard({ user, trip }) {
+export default function TripPage({ user, trip }) {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
 
@@ -35,7 +35,7 @@ export default function Dashboard({ user, trip }) {
         <p>{formatRange(start_date, end_date)}</p>
         <p>{description}</p>
 
-        {activities.length > 0 ? (
+        {activities?.length > 0 ? (
           activities.map((activity) => {
             return <ActivityCard key={activity._id} activity={activity} />;
           })

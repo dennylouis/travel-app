@@ -1,4 +1,4 @@
-import { DateTime } from "luxon";
+import { formatRange } from "../../lib/dateHelpers";
 import styles from "./ActivityCard.module.scss";
 
 export default function ActivityCard({ activity }) {
@@ -8,10 +8,7 @@ export default function ActivityCard({ activity }) {
       <img className={styles.image} src={image} />
       <div>
         <p>{name}</p>
-        <span>
-          {DateTime.fromISO(start_date).toFormat("dd LLL yyyy")} –{" "}
-          {DateTime.fromISO(start_date).toFormat("dd LLL yyyy")}
-        </span>
+        <span>{formatRange(start_date, end_date)}</span>
       </div>
     </div>
   );

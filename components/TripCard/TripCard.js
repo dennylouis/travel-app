@@ -10,9 +10,13 @@ export default function TripCard({ trip }) {
       <a className={styles.container}>
         <h3>{name}</h3>
         <p style={{ margin: "0 0 1rem 0" }}>
-          {formatRange(start_date, end_date)}
-          <br />
-          {DateTime.fromISO(start_date).toRelative()}
+          {start_date && end_date ? (
+            <>
+              {formatRange(start_date, end_date)} • {DateTime.fromISO(start_date).toRelative()}
+            </>
+          ) : (
+            "no dates set"
+          )}
         </p>
         <span>{description}</span>
       </a>

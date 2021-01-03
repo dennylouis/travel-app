@@ -56,6 +56,10 @@ button {
   outline: none;
   display: block;
   border-radius: 4px;
+
+  &:disabled {
+    background: red;
+  }
 }
 
 svg {

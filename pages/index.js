@@ -37,13 +37,17 @@ export default function Dashboard({ user, trips }) {
             <button onClick={() => setShowModal(true)}>Create new trip</button>
           </div>
 
-          {trips.length > 0 ? (
-            trips.map((trip) => {
-              return <TripCard key={trip._id} trip={trip} />;
-            })
-          ) : (
-            <p>No trips</p>
-          )}
+          <div
+            style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gridColumnGap: "1rem" }}
+          >
+            {trips.length > 0 ? (
+              trips.map((trip) => {
+                return <TripCard key={trip._id} trip={trip} />;
+              })
+            ) : (
+              <p>No trips</p>
+            )}
+          </div>
         </div>
 
         {/* <pre style={{ background: "#f0f0f0", padding: 16, borderRadius: 8, overflow: "auto" }}>

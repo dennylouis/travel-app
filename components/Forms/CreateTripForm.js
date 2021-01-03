@@ -3,6 +3,7 @@ import Input from "../Input/Input";
 
 export default function CreateTripForm() {
   async function handleSubmit(values) {
+    console.log("hello?");
     const response = await fetch("/api/trips/create", {
       method: "POST",
       headers: {
@@ -10,11 +11,13 @@ export default function CreateTripForm() {
       },
       body: JSON.stringify({ ...values }),
     });
+
+    console.log(response);
   }
 
   const handleValidation = (values) => {
     const errors = {};
-    if (!values.title) errors.title = "Required";
+    if (!values.name) errors.name = "Required";
 
     return errors;
   };
@@ -32,8 +35,8 @@ export default function CreateTripForm() {
             <Form>
               <Input name="name" type="text" label="Name" placeholder="Trip name" />
               <Input name="description" type="text" label="Description" placeholder="Description" />
-              <Input name="startDate" type="date" label="Start Date" placeholder="Notes" />
-              <Input name="endDate" type="date" label="End Date" placeholder="Notes" />
+              <Input name="startDate" type="date" label="Start Date" placeholder="Start Date" />
+              <Input name="endDate" type="date" label="End Date" placeholder="End Date" />
 
               <button type="submit" disabled={!props.isValid}>
                 Submit
