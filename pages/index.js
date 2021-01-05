@@ -26,7 +26,7 @@ export default function Dashboard({ user, trips }) {
         <CreateTripForm />
       </Modal>
 
-      <div style={{ width: "100%", padding: "1.5rem" }}>
+      <div style={{ width: "100%", padding: "1.5rem", background: "var(--color-grey-020)" }}>
         <Logout />
         <h1>Welcome {user.firstName}</h1>
         {!user.emailConfirmed && <p>Your email address has not been confirmed</p>}
@@ -38,7 +38,11 @@ export default function Dashboard({ user, trips }) {
           </div>
 
           <div
-            style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gridColumnGap: "1rem" }}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr 1fr",
+              gridColumnGap: "1rem",
+            }}
           >
             {trips.length > 0 ? (
               trips.map((trip) => {

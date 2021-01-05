@@ -1,0 +1,15 @@
+.container {
+  height: 2rem;
+  width: 2rem;
+  background: var(--color-blue-100);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.initial {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  color: var(--color-blue-600);
+}
