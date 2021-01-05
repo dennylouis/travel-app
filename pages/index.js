@@ -9,6 +9,7 @@ import TripCard from "../components/TripCard/TripCard";
 import CreateTripForm from "../components/Forms/CreateTripForm";
 import Modal from "../components/Modal/Modal";
 import Header from "../components/Header/Header";
+import Avatar from "../components/Avatar/Avatar";
 
 export default function Dashboard({ user, trips }) {
   const router = useRouter();
@@ -28,8 +29,6 @@ export default function Dashboard({ user, trips }) {
     ({ start_date, end_date }) => isBeforeToday(start_date) && isAfterToday(end_date)
   );
 
-  console.log(upcomingTrips, completedTrips);
-
   return (
     <>
       <Modal isOpen={showModal} close={() => setShowModal(false)} size="large">
@@ -38,11 +37,20 @@ export default function Dashboard({ user, trips }) {
 
       <div style={{ background: "var(--color-grey-020)" }}>
         <Header>
-          <p>
-            {user.firstName} {user.lastName} • {user.email}
-            {!user.emailConfirmed && " • Your email address has not been confirmed"}
-          </p>
-
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "auto auto",
+              gridGap: "0.5rem",
+              alignItems: "center",
+            }}
+          >
+            <Avatar user={user} />
+            <p className="text-medium">
+              {user.firstName} {user.lastName} • {user.email}
+              {!user.emailConfirmed && " • Your email address has not been confirmed"}
+            </p>
+          </div>
           <Logout />
         </Header>
 
@@ -97,7 +105,7 @@ export default function Dashboard({ user, trips }) {
                 }}
               >
                 {completedTrips.map((trip) => {
-                  return <TripCard key={trip._id} trip={trip} />;
+                  return <TripCard key={trip._id} trip={trip} completed />;
                 })}
               </div>
             </div>
