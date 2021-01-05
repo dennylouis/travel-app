@@ -3,15 +3,19 @@
   --color-grey-020: #fafafa;
   --color-grey-050: #f0f0f0;
   --color-grey-100: #e5e5e5;
+  --color-grey-400: #999999;
   --color-grey-600: #666666;
   --color-grey-900: #1a1a1a;
-  --color-blue-100: #cce6ff;
-  --color-blue-600: #0080ff;
+  --color-blue-100: hsla(210, 100%, 95%, 1);
+  --color-blue-300: hsla(210, 100%, 70%, 1);
+  --color-blue-600: hsla(210, 100%, 50%, 1);
   --color-dark-pink: #e6a0a0;
   --color-dark-pink-50: #e6a0a080;
   --color-light-pink: #ffe9e9;
   --color-light-pink-50: #ffe9e980;
   --color-overlay: hsla(0, 0%, 50%, 0.4);
+  --transparent-black-050: hsla(0, 0%, 0%, 0.05);
+  --inner-shadow-1px: inset 0 0 0 1px var(--transparent-black-050);
   --font-wide: scto-a, sans-serif;
   --font-narrow: scto-b, sans-serif;
 }
@@ -33,6 +37,7 @@ body {
 
 * {
   box-sizing: border-box;
+  margin: 0;
 }
 
 h1,
@@ -40,6 +45,31 @@ h2,
 h3,
 h4 {
   font-family: var(--font-wide);
+}
+
+h1 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+}
+
+.text-large {
+  font-size: 1rem;
+  line-height: 1.25rem;
+}
+
+.text-medium {
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+}
+
+.text-small {
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
 
 a {
@@ -59,13 +89,17 @@ button {
 
 button {
   color: inherit;
-  padding: 1rem;
-  border: 0;
-  background: var(--color-grey-050);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-grey-100);
+  background: var(--color-grey-020);
   font-size: inherit;
   outline: none;
   display: block;
   border-radius: 4px;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--color-grey-600);
+  font-weight: 600;
 
   &:disabled {
     background: red;

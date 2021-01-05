@@ -3,10 +3,12 @@ import { useRouter } from "next/router";
 import { readToken } from "../lib/tokenHelpers";
 import { getTrips } from "../lib/dbHelpers";
 import { getAuthToken } from "../lib/cookie";
+import { isBeforeToday, isAfterToday } from "../lib/dateHelpers";
 import Logout from "../components/Logout/Logout";
 import TripCard from "../components/TripCard/TripCard";
 import CreateTripForm from "../components/Forms/CreateTripForm";
 import Modal from "../components/Modal/Modal";
+import Header from "../components/Header/Header";
 
 export default function Dashboard({ user, trips }) {
   const router = useRouter();
@@ -20,44 +22,93 @@ export default function Dashboard({ user, trips }) {
 
   if (!user) return <div />;
 
+  const upcomingTrips = trips.filter(({ start_date }) => isAfterToday(start_date));
+  const completedTrips = trips.filter(({ end_date }) => isBeforeToday(end_date));
+  const currentTrips = trips.filter(
+    ({ start_date, end_date }) => isBeforeToday(start_date) && isAfterToday(end_date)
+  );
+
+  console.log(upcomingTrips, completedTrips);
+
   return (
     <>
       <Modal isOpen={showModal} close={() => setShowModal(false)} size="large">
         <CreateTripForm />
       </Modal>
 
-      <div style={{ width: "100%", padding: "1.5rem", background: "var(--color-grey-020)" }}>
-        <Logout />
-        <h1>Welcome {user.firstName}</h1>
-        {!user.emailConfirmed && <p>Your email address has not been confirmed</p>}
+      <div style={{ background: "var(--color-grey-020)" }}>
+        <Header>
+          <p>
+            {user.firstName} {user.lastName} • {user.email}
+            {!user.emailConfirmed && " • Your email address has not been confirmed"}
+          </p>
 
-        <div>
+          <Logout />
+        </Header>
+
+        <div style={{ width: "100%", padding: "5rem" }}>
           <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-            <h2>Trips</h2>
+            <h1>Your Trips</h1>
+
             <button onClick={() => setShowModal(true)}>Create new trip</button>
           </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr 1fr",
-              gridColumnGap: "1rem",
-            }}
-          >
-            {trips.length > 0 ? (
-              trips.map((trip) => {
-                return <TripCard key={trip._id} trip={trip} />;
-              })
-            ) : (
-              <p>No trips</p>
-            )}
-          </div>
-        </div>
+          {currentTrips.length > 0 && (
+            <div style={{ padding: "2.5rem 0", borderBottom: "1px solid var(--color-grey-100" }}>
+              <h2 style={{ margin: "0 0 1rem 0" }}>Current</h2>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr 1fr 1fr",
+                  gridColumnGap: "1rem",
+                }}
+              >
+                {currentTrips.map((trip) => {
+                  return <TripCard key={trip._id} trip={trip} />;
+                })}
+              </div>
+            </div>
+          )}
+          {upcomingTrips.length > 0 && (
+            <div style={{ padding: "2.5rem 0", borderBottom: "1px solid var(--color-grey-100" }}>
+              <h2 style={{ margin: "0 0 1rem 0" }}>Upcoming</h2>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr 1fr 1fr",
+                  gridColumnGap: "1rem",
+                }}
+              >
+                {upcomingTrips.map((trip) => {
+                  return <TripCard key={trip._id} trip={trip} />;
+                })}
+              </div>
+            </div>
+          )}
 
-        {/* <pre style={{ background: "#f0f0f0", padding: 16, borderRadius: 8, overflow: "auto" }}>
+          {completedTrips.length > 0 && (
+            <div style={{ padding: "2.5rem 0", borderBottom: "1px solid var(--color-grey-100" }}>
+              <h2 style={{ margin: "0 0 1rem 0" }}>Completed</h2>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr 1fr 1fr",
+                  gridColumnGap: "1rem",
+                }}
+              >
+                {completedTrips.map((trip) => {
+                  return <TripCard key={trip._id} trip={trip} />;
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* <pre style={{ background: "#f0f0f0", padding: 16, borderRadius: 8, overflow: "auto" }}>
           {JSON.stringify(user, null, 2)}
         </pre> */}
-      </div>
+      {/* </div> */}
     </>
   );
 }

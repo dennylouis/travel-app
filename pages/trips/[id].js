@@ -8,6 +8,8 @@ import useSWR from "swr";
 import ActivityCard from "../../components/ActivityCard/ActivityCard";
 import CreateActivityForm from "../../components/Forms/CreateActivityForm";
 import Modal from "../../components/Modal/Modal";
+import Header from "../../components/Header/Header";
+import Avatar from "../../components/Avatar/Avatar";
 
 export default function TripPage(props) {
   const router = useRouter();
@@ -31,21 +33,46 @@ export default function TripPage(props) {
         <CreateActivityForm trip_id={_id} />
       </Modal>
 
-      <div style={{ width: "100%", padding: "1.5rem" }}>
-        <button onClick={() => router.back()}>Back</button>
-        <button onClick={() => setShowModal(true)}>Add new activity</button>
-        <h1>{name}</h1>
-        <p>{formatRange(start_date, end_date)}</p>
-        <p>{description}</p>
+      <div>
+        <Header>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <button onClick={() => router.back()} style={{ border: "none", background: "none" }}>
+              ←
+            </button>
+            <span className="text-large" style={{ fontWeight: 700, marginLeft: "0.5rem" }}>
+              {name}
+            </span>
+          </div>
+          <div
+            style={{ display: "grid", gridTemplateColumns: "auto auto auto", gridGap: "0.5rem" }}
+          >
+            <button>Category View</button>
+            <button>Calendar View</button>
+            <button>Map View</button>
+          </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gridColumnGap: "1rem" }}>
-          {activities?.length > 0 ? (
-            activities.map((activity) => {
-              return <ActivityCard key={activity._id} activity={activity} />;
-            })
-          ) : (
-            <p>No Activities</p>
-          )}
+          <div style={{ display: "grid", gridTemplateColumns: "auto auto", gridGap: "0.5rem" }}>
+            <Avatar user={{ firstName: "Denny" }} />
+            <Avatar user={{ firstName: "Alison" }} />
+          </div>
+        </Header>
+
+        <div style={{ width: "100%", padding: "1.5rem", background: "var(--color-grey-020" }}>
+          <button onClick={() => setShowModal(true)}>Add new activity</button>
+          <p>{formatRange(start_date, end_date)}</p>
+          <p>{description}</p>
+
+          <div
+            style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gridColumnGap: "1rem" }}
+          >
+            {activities?.length > 0 ? (
+              activities.map((activity) => {
+                return <ActivityCard key={activity._id} activity={activity} />;
+              })
+            ) : (
+              <p>No Activities</p>
+            )}
+          </div>
         </div>
       </div>
     </>
