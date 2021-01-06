@@ -3,11 +3,17 @@
 - [x] Get Sendgrid email sending
 - [x] Create confirm email api endpoint
 - [ ] Include link in confirmation email
-- [ ] Create log in flow
-- [ ] Create authenticated route to retrieve activities
+- [x] Create log in flow
+- [x] Create authenticated route to retrieve activities
 - [ ] Create password reset functionality
-- [ ] Figure out how references work in MongoDB
-- [ ] Create adding activity functionality
+- [x] Figure out how references work in MongoDB
+- [x] Create adding activity functionality
+- [ ] Set up image upload with Cloudinary
+- [ ] Create date pickers for activity creation
+- [ ] Create invite user to trip functionality
+- [ ] Improve data fetching from MongoDB using Aggregation
+- [ ] Join all users (owners and collaborators) on trip and display in top corner
+- [ ] Clean up all data fetching
 - [ ] Create editing activity functionality
 - [ ] Create activity list view
 - [ ] Create activity calendar view

@@ -10,16 +10,24 @@ import CreateTripForm from "../components/Forms/CreateTripForm";
 import Modal from "../components/Modal/Modal";
 import Header from "../components/Header/Header";
 import Avatar from "../components/Avatar/Avatar";
+import useSWR from "swr";
 
-export default function Dashboard({ user, trips }) {
+export default function Dashboard(props) {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
 
+  const { user } = props;
+  const { data, error } = useSWR(`/api/trips/`, { initialData: { trips: props.trips } });
+
   useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    }
+    if (!user) router.push("/login");
   }, []);
+
+  if (!user) return <div />;
+  if (!data) return <div>Loading...</div>;
+
+  // const { name, start_date, end_date, description, _id, activities, owner } = data.trips;
+  const { trips } = data;
 
   if (!user) return <div />;
 

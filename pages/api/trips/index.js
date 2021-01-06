@@ -8,8 +8,9 @@ export default async (req, res) => {
 
     if (token) {
       const user = await readToken(token);
-      const trip = await getTrips(user._id);
-      res.status(200).json({ trip });
+      const trips = await getTrips(user._id);
+
+      res.status(200).json({ trips });
     } else {
       throw new Error("Not authenticated");
     }

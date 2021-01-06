@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { readToken } from "../../lib/tokenHelpers";
-import { getTripById } from "../../lib/dbHelpers";
+import {
+  //  getTripById,
+  getTripWithOwner,
+} from "../../lib/dbHelpers";
 import { getAuthToken } from "../../lib/cookie";
 import { formatRange } from "../../lib/dateHelpers";
 import useSWR from "swr";
@@ -25,7 +28,7 @@ export default function TripPage(props) {
   if (!props.user) return <div />;
   if (!data) return <div>Loading...</div>;
 
-  const { name, start_date, end_date, description, _id, activities } = data.trip;
+  const { name, start_date, end_date, description, _id, activities, owner } = data.trip;
 
   return (
     <>
@@ -52,8 +55,8 @@ export default function TripPage(props) {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "auto auto", gridGap: "0.5rem" }}>
-            <Avatar user={{ firstName: "Denny" }} />
-            <Avatar user={{ firstName: "Alison" }} />
+            <Avatar user={owner[0]} />
+            {/* <Avatar user={{ firstName: "Alison" }} /> */}
           </div>
         </Header>
 
@@ -85,9 +88,10 @@ export async function getServerSideProps({ params, req }) {
 
     if (token) {
       const user = await readToken(token);
-      const trip = await getTripById(params.id);
+      // const trip = await getTripById(params.id);
+      const trip = await getTripWithOwner(params.id);
 
-      return { props: { user, trip: JSON.parse(JSON.stringify(trip)) } };
+      return { props: { user, trip: JSON.parse(JSON.stringify(trip[0])) } };
     } else {
       throw new Error("Not authenticated");
     }
