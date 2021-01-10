@@ -1,5 +1,6 @@
 import { Formik, Form } from "formik";
 import Input from "../Input/Input";
+import AddressInput from "../AddressInput/AddressInput";
 // import styles from "./CreateActivityForm.module.scss";
 
 export default function CreateActivityForm({ trip_id }) {
@@ -25,14 +26,23 @@ export default function CreateActivityForm({ trip_id }) {
     <div>
       <h1>New Activity</h1>
       <Formik
-        initialValues={{ name: "", notes: "", startDate: "", endDate: "" }}
+        initialValues={{ name: "", notes: "", address: "", startDate: "", endDate: "" }}
         onSubmit={handleSubmit}
         validate={handleValidation}
       >
         {(props) => {
+          console.log(props);
           return (
             <Form>
               <Input name="name" type="text" label="Name" placeholder="Activity name" />
+              <AddressInput
+                value={props.values.address}
+                onChange={props.handleChange}
+                name="address"
+                type="text"
+                label="Address"
+                placeholder="Address"
+              />
               <Input name="notes" type="text" label="Notes" placeholder="Notes" />
               <Input name="startDate" type="date" label="Start Date" placeholder="Notes" />
               <Input name="endDate" type="date" label="End Date" placeholder="Notes" />
