@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { readToken } from "../../lib/tokenHelpers";
+import Link from "next/link";
 import {
   //  getTripById,
   getTripWithOwner,
@@ -54,9 +55,15 @@ export default function TripPage(props) {
             <button>Map View</button>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "auto auto", gridGap: "0.5rem" }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "auto auto",
+              gridGap: "0.5rem",
+            }}
+          >
             <Avatar user={owner[0]} />
-            {/* <Avatar user={{ firstName: "Alison" }} /> */}
+            <button>Invite a traveller</button>
           </div>
         </Header>
 

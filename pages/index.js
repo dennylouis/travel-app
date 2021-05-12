@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { readToken } from "../lib/tokenHelpers";
 import { getTrips } from "../lib/dbHelpers";
 import { getAuthToken } from "../lib/cookie";
@@ -29,8 +30,6 @@ export default function Dashboard(props) {
   // const { name, start_date, end_date, description, _id, activities, owner } = data.trips;
   const { trips } = data;
 
-  if (!user) return <div />;
-
   const upcomingTrips = trips.filter(({ start_date }) => isAfterToday(start_date));
   const completedTrips = trips.filter(({ end_date }) => isBeforeToday(end_date));
   const currentTrips = trips.filter(
@@ -45,6 +44,7 @@ export default function Dashboard(props) {
 
       <div style={{ background: "var(--color-grey-020)" }}>
         <Header>
+          <h3>Home</h3>
           <div
             style={{
               display: "grid",
@@ -53,13 +53,13 @@ export default function Dashboard(props) {
               alignItems: "center",
             }}
           >
-            <Avatar user={user} />
-            <p className="text-medium">
-              {user.firstName} {user.lastName} • {user.email}
-              {!user.emailConfirmed && " • Your email address has not been confirmed"}
-            </p>
+            <Link href="/account">
+              <a>
+                <Avatar user={user} />
+              </a>
+            </Link>
+            <Logout />
           </div>
-          <Logout />
         </Header>
 
         <div style={{ width: "100%", padding: "5rem" }}>
