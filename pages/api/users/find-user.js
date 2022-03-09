@@ -1,4 +1,4 @@
-import { getUserByEmail } from "../../../lib/dbHelpers";
+import { getUserByEmail } from "lib/dbHelpers";
 
 export default async (req, res) => {
   if (req.method !== "POST") return res.status(405).end();

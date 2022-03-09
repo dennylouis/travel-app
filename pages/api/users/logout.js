@@ -1,4 +1,4 @@
-import { removeAuthCookies } from "../../../lib/cookie";
+import { removeAuthCookies } from "lib/cookie";
 
 export default async (req, res) => {
   removeAuthCookies(res);

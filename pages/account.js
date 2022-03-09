@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { readToken } from "../lib/tokenHelpers";
-import { getAuthToken } from "../lib/cookie";
-import Logout from "../components/Logout/Logout";
-import Header from "../components/Header/Header";
-import Avatar from "../components/Avatar/Avatar";
+import { readToken } from "lib/tokenHelpers";
+import { getAuthToken } from "lib/cookie";
+import Logout from "components/Logout/Logout";
+import Header from "components/Header/Header";
+import Avatar from "components/Avatar/Avatar";
 import Link from "next/link";
 
 export default function Dashboard(props) {

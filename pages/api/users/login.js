@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
-import { getUserByEmail, updateUserLastLogin } from "../../../lib/dbHelpers";
-import { createToken } from "../../../lib/tokenHelpers";
-import { setTokenCookie } from "../../../lib/cookie";
+import { getUserByEmail, updateUserLastLogin } from "lib/dbHelpers";
+import { createToken } from "lib/tokenHelpers";
+import { setTokenCookie } from "lib/cookie";
 
 export default async (req, res) => {
   if (req.method !== "POST") return res.status(405).end();

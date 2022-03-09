@@ -5,7 +5,7 @@ import Avatar from "../Avatar/Avatar";
 import styles from "./TripCard.module.scss";
 
 export default function TripCard({ trip, completed }) {
-  const { name, start_date, end_date, _id } = trip;
+  const { _id, name, start_date, end_date, description } = trip;
 
   const relativeDate = () => {
     const isUpcoming = isAfterToday(start_date);
@@ -30,7 +30,8 @@ export default function TripCard({ trip, completed }) {
 
         <div className={styles.info}>
           <h3 className={styles.name}>{name}</h3>
-          {start_date && <span className={styles.date}>{relativeDate()}</span>}
+          {start_date && <p className={styles.date}>{relativeDate()}</p>}
+          {description && <p className={styles.date}>{description}</p>}
         </div>
 
         <span className={styles.cta}>View trip</span>

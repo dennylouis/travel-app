@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { readToken } from "../lib/tokenHelpers";
-import { getTrips } from "../lib/dbHelpers";
-import { getAuthToken } from "../lib/cookie";
-import { isBeforeToday, isAfterToday } from "../lib/dateHelpers";
-import Logout from "../components/Logout/Logout";
-import TripCard from "../components/TripCard/TripCard";
-import CreateTripForm from "../components/Forms/CreateTripForm";
-import Modal from "../components/Modal/Modal";
-import Header from "../components/Header/Header";
-import Avatar from "../components/Avatar/Avatar";
+import { readToken } from "lib/tokenHelpers";
+import { getTrips } from "lib/dbHelpers";
+import { getAuthToken } from "lib/cookie";
+import { isBeforeToday, isAfterToday } from "lib/dateHelpers";
+import Logout from "components/Logout/Logout";
+import TripCard from "components/TripCard/TripCard";
+import TripRow from "components/TripRow/TripRow";
+import CreateTripForm from "components/Forms/CreateTripForm";
+import Modal from "components/Modal/Modal";
+import Header from "components/Header/Header";
+import Avatar from "components/Avatar/Avatar";
 import useSWR from "swr";
 
 export default function Dashboard(props) {
@@ -42,7 +43,7 @@ export default function Dashboard(props) {
         <CreateTripForm />
       </Modal>
 
-      <div style={{ background: "var(--color-grey-020)" }}>
+      <div style={{ background: "var(--color-background)" }}>
         <Header>
           <h3>Home</h3>
           <div
@@ -62,69 +63,25 @@ export default function Dashboard(props) {
           </div>
         </Header>
 
-        <div style={{ width: "100%", padding: "5rem" }}>
-          <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+        <div style={{ width: "100%", padding: "0" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              padding: "3rem var(--page-margin) 0",
+            }}
+          >
             <h1>Your Trips</h1>
 
             <button onClick={() => setShowModal(true)}>Create new trip</button>
           </div>
 
-          {currentTrips.length > 0 && (
-            <div style={{ padding: "2.5rem 0", borderBottom: "1px solid var(--color-grey-100" }}>
-              <h2 style={{ margin: "0 0 1rem 0" }}>Current</h2>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr 1fr 1fr",
-                  gridColumnGap: "1rem",
-                }}
-              >
-                {currentTrips.map((trip) => {
-                  return <TripCard key={trip._id} trip={trip} />;
-                })}
-              </div>
-            </div>
-          )}
-          {upcomingTrips.length > 0 && (
-            <div style={{ padding: "2.5rem 0", borderBottom: "1px solid var(--color-grey-100" }}>
-              <h2 style={{ margin: "0 0 1rem 0" }}>Upcoming</h2>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr 1fr 1fr",
-                  gridColumnGap: "1rem",
-                }}
-              >
-                {upcomingTrips.map((trip) => {
-                  return <TripCard key={trip._id} trip={trip} />;
-                })}
-              </div>
-            </div>
-          )}
-
-          {completedTrips.length > 0 && (
-            <div style={{ padding: "2.5rem 0", borderBottom: "1px solid var(--color-grey-100" }}>
-              <h2 style={{ margin: "0 0 1rem 0" }}>Completed</h2>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr 1fr 1fr",
-                  gridColumnGap: "1rem",
-                }}
-              >
-                {completedTrips.map((trip) => {
-                  return <TripCard key={trip._id} trip={trip} completed />;
-                })}
-              </div>
-            </div>
-          )}
+          {currentTrips.length > 0 && <TripRow title="Current" trips={currentTrips} />}
+          {upcomingTrips.length > 0 && <TripRow title="Upcoming" trips={upcomingTrips} />}
+          {completedTrips.length > 0 && <TripRow title="Completed" trips={completedTrips} />}
         </div>
       </div>
-
-      {/* <pre style={{ background: "#f0f0f0", padding: 16, borderRadius: 8, overflow: "auto" }}>
-          {JSON.stringify(user, null, 2)}
-        </pre> */}
-      {/* </div> */}
     </>
   );
 }

@@ -1,6 +1,6 @@
-import { getAuthToken } from "../../../lib/cookie";
-import { readToken } from "../../../lib/tokenHelpers";
-import { getTrips } from "../../../lib/dbHelpers";
+import { getAuthToken } from "lib/cookie";
+import { readToken } from "lib/tokenHelpers";
+import { getTrips } from "lib/dbHelpers";
 
 export default async (req, res) => {
   try {

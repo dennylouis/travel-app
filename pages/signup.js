@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Formik, Form } from "formik";
-import Input from "../components/Input/Input";
+import Input from "components/Input/Input";
 
 export default function Signup() {
   const router = useRouter();

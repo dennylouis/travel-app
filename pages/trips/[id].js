@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { readToken } from "../../lib/tokenHelpers";
+import { readToken } from "lib/tokenHelpers";
 import Link from "next/link";
 import {
   //  getTripById,
   getTripWithOwner,
 } from "../../lib/dbHelpers";
-import { getAuthToken } from "../../lib/cookie";
-import { formatRange } from "../../lib/dateHelpers";
+import { getAuthToken } from "lib/cookie";
+import { formatRange } from "lib/dateHelpers";
 import useSWR from "swr";
-import ActivityCard from "../../components/ActivityCard/ActivityCard";
-import CreateActivityForm from "../../components/Forms/CreateActivityForm";
-import Modal from "../../components/Modal/Modal";
-import Header from "../../components/Header/Header";
-import Avatar from "../../components/Avatar/Avatar";
+import ActivityCard from "components/ActivityCard/ActivityCard";
+import CreateActivityForm from "components/Forms/CreateActivityForm";
+import Modal from "components/Modal/Modal";
+import Header from "components/Header/Header";
+import Avatar from "components/Avatar/Avatar";
 
 export default function TripPage(props) {
   const router = useRouter();
@@ -30,6 +30,7 @@ export default function TripPage(props) {
   if (!data) return <div>Loading...</div>;
 
   const { name, start_date, end_date, description, _id, activities, owner } = data.trip;
+  console.log(activities);
 
   return (
     <>
@@ -72,12 +73,30 @@ export default function TripPage(props) {
           <p>{formatRange(start_date, end_date)}</p>
           <p>{description}</p>
 
+          <button
+            onClick={async () => {
+              // console.log("hello?");
+              // const response =
+              await fetch(`/api/trips/${_id}`, {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                // body: JSON.stringify({ ...values }),
+              });
+
+              // console.log(response);
+              // }
+            }}
+          >
+            Delete trip
+          </button>
           <div
             style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gridColumnGap: "1rem" }}
           >
             {activities?.length > 0 ? (
               activities.map((activity) => {
-                return <ActivityCard key={activity._id} activity={activity} />;
+                return <ActivityCard key={activity._id} activity={activity} trip_id={_id} />;
               })
             ) : (
               <p>No Activities</p>

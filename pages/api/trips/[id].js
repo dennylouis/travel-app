@@ -1,8 +1,9 @@
-import { getAuthToken } from "../../../lib/cookie";
+import { getAuthToken } from "lib/cookie";
 import {
   // getTripById,
   getTripWithOwner,
-} from "../../../lib/dbHelpers";
+  deleteTrip,
+} from "lib/dbHelpers";
 
 export default async (req, res) => {
   try {
@@ -14,9 +15,16 @@ export default async (req, res) => {
       // } = req;
 
       // const trip = await getTripById(id);
-      const trip = await getTripWithOwner(req.query.id);
-
-      res.status(200).json({ trip: trip[0] });
+      if (req.method === "DELETE") {
+        // const trip =
+        await deleteTrip(req.query.id);
+        // console.log(trip[0].activities);
+        res.status(204);
+      } else if (req.method === "GET") {
+        const trip = await getTripWithOwner(req.query.id);
+        console.log(trip[0].activities);
+        res.status(200).json({ trip: trip[0] });
+      }
     } else {
       throw new Error("Not authenticated");
     }

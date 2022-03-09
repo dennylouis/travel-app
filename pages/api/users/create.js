@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
-import { createToken } from "../../../lib/tokenHelpers";
-import { setTokenCookie } from "../../../lib/cookie";
-import { createUser } from "../../../lib/dbHelpers";
-import { sendConfirmationEmail } from "../../../lib/sendGrid";
+import { createToken } from "lib/tokenHelpers";
+import { setTokenCookie } from "lib/cookie";
+import { createUser } from "lib/dbHelpers";
+import { sendConfirmationEmail } from "lib/sendGrid";
 
 export default async (req, res) => {
   if (req.method !== "POST") return res.status(405).end();

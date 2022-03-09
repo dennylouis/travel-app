@@ -1,5 +1,5 @@
-import { readToken } from "../../../lib/tokenHelpers";
-import { getAuthToken } from "../../../lib/cookie";
+import { readToken } from "lib/tokenHelpers";
+import { getAuthToken } from "lib/cookie";
 
 export default async (req, res) => {
   try {

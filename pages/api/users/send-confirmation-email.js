@@ -1,5 +1,5 @@
-import { getUserById } from "../../../lib/dbHelpers";
-import { sendConfirmationEmail } from "../../../lib/sendGrid";
+import { getUserById } from "lib/dbHelpers";
+import { sendConfirmationEmail } from "lib/sendGrid";
 
 export default async (req, res) => {
   if (req.method !== "POST") return res.status(405).end();

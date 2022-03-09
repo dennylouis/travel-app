@@ -1,4 +1,5 @@
 :root {
+  // Colors
   --color-white: #ffffff;
   --color-grey-020: #fafafa;
   --color-grey-050: #f0f0f0;
@@ -15,14 +16,21 @@
   --color-light-pink-50: #ffe9e980;
   --color-overlay: hsla(0, 0%, 50%, 0.4);
   --transparent-black-050: hsla(0, 0%, 0%, 0.05);
+
+  // Shadows
   --inner-shadow-1px: inset 0 0 0 1px var(--transparent-black-050);
+
+  // Fonts
   --font-wide: scto-a, sans-serif;
   --font-narrow: scto-b, sans-serif;
-}
 
-@media (min-width: 900px) {
-  :root {
+  // Design Tokens
+  --color-background: var(--color-grey-020);
+  --page-margin: 1rem;
+
+  @media (min-width: 900px) {
     --header-height: 100px;
+    --page-margin: 5rem;
   }
 }
 
@@ -91,7 +99,7 @@ button {
   color: inherit;
   padding: 0.5rem 0.75rem;
   border: 1px solid var(--color-grey-100);
-  background: var(--color-grey-020);
+  background: var(--color-white);
   font-size: inherit;
   outline: none;
   display: block;

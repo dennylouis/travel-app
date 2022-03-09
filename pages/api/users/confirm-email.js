@@ -1,4 +1,4 @@
-import { connect } from "../../../lib/database";
+import { connect } from "lib/database";
 
 export default async (req, res) => {
   if (req.method !== "POST") return res.status(405).end();

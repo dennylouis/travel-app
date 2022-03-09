@@ -1,6 +1,6 @@
-import { readToken } from "../../../lib/tokenHelpers";
-import { getAuthToken } from "../../../lib/cookie";
-import { createTrip } from "../../../lib/dbHelpers";
+import { readToken } from "lib/tokenHelpers";
+import { getAuthToken } from "lib/cookie";
+import { createTrip } from "lib/dbHelpers";
 
 export default async (req, res) => {
   if (req.method !== "POST") return res.status(405).end();
