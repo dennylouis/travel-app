@@ -1,0 +1,42 @@
+.stickyBit {
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: fixed;
+  inset: 0 0 auto 0;
+  background: var(--color-white-a80);
+  backdrop-filter: blur(1.5rem);
+  z-index: 1000;
+}
+
+.scrollingBit {
+  background: var(--color-white);
+  // padding: calc(3.5rem + 2rem) var(--page-margin) 1rem;
+  padding: calc(3.5rem + 2rem) 1rem 1rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.details {
+  flex: 1;
+}
+// .actions {
+//   background: red;
+// }
+
+.iconButton {
+  padding: 0.25rem;
+  line-height: 1.5rem;
+  width: 2rem;
+  border-radius: 50%;
+  font-size: 1rem;
+  border: none;
+  background: transparent;
+
+  @media (hover: hover) {
+    &:hover {
+      background: var(--transparent-black-050);
+    }
+  }
+}

@@ -61,6 +61,12 @@ p a {
   text-decoration-color: var(--color-blue-300);
 }
 
+p.caption {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--color-grey-600);
+}
+
 // @font-face {
 //   font-family: Graphik;
 //   font-weight: 500;

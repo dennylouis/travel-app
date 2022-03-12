@@ -18,8 +18,8 @@ export default function ActivityCard({ activity, trip_id }) {
     <div className={styles.container}>
       <div className={styles.details}>
         <p className={styles.title}>{name}</p>
-        {location && <p className={styles.caption}>{location.name}</p>}
-        {start_date && <p className={styles.caption}>{formatRange(start_date, end_date)}</p>}
+        {location && <p className="caption">{location.name}</p>}
+        {start_date && <p className="caption">{formatRange(start_date, end_date)}</p>}
         {type && <p>{type}</p>}
       </div>
 

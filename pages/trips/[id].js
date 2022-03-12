@@ -7,18 +7,14 @@ import {
   getTripWithOwner,
 } from "../../lib/dbHelpers";
 import { getAuthToken } from "lib/cookie";
-import { formatRange } from "lib/dateHelpers";
 import useSWR from "swr";
-import ActivityCard from "components/ActivityCard/ActivityCard";
-import CreateActivityForm from "components/Forms/CreateActivityForm";
-import Modal from "components/Modal/Modal";
-import Header from "components/Header/Header";
-import Avatar from "components/Avatar/Avatar";
+
+import TripHeader from "components/TripPage/TripHeader/TripHeader";
+import CategoryView from "components/TripPage/CategoryView/CategoryView";
 
 export default function TripPage(props) {
   const router = useRouter();
   const { id } = router.query;
-  const [showModal, setShowModal] = useState(false);
 
   const { data, error } = useSWR(`/api/trips/${id}`, { initialData: { trip: props.trip } });
 
@@ -29,82 +25,13 @@ export default function TripPage(props) {
   if (!props.user) return <div />;
   if (!data) return <div>Loading...</div>;
 
-  const { name, start_date, end_date, description, _id, activities, owner } = data.trip;
-  console.log(activities);
+  const { name, _id, activities, owner } = data.trip;
 
   return (
-    <>
-      <Modal isOpen={showModal} close={() => setShowModal(false)} size="large">
-        <CreateActivityForm trip_id={_id} />
-      </Modal>
-
-      <div>
-        <Header>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <button onClick={() => router.back()} style={{ border: "none", background: "none" }}>
-              ←
-            </button>
-            <span className="text-large" style={{ fontWeight: 700, marginLeft: "0.5rem" }}>
-              {name}
-            </span>
-          </div>
-          <div
-            style={{ display: "grid", gridTemplateColumns: "auto auto auto", gridGap: "0.5rem" }}
-          >
-            <button>Category View</button>
-            <button>Calendar View</button>
-            <button>Map View</button>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "auto auto",
-              gridGap: "0.5rem",
-            }}
-          >
-            <Avatar user={owner[0]} />
-            <button>Invite a traveller</button>
-          </div>
-        </Header>
-
-        <div style={{ width: "100%", padding: "1.5rem", background: "var(--color-grey-020" }}>
-          <button onClick={() => setShowModal(true)}>Add new activity</button>
-          <p>{formatRange(start_date, end_date)}</p>
-          <p>{description}</p>
-
-          <button
-            onClick={async () => {
-              // console.log("hello?");
-              // const response =
-              await fetch(`/api/trips/${_id}`, {
-                method: "DELETE",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                // body: JSON.stringify({ ...values }),
-              });
-
-              // console.log(response);
-              // }
-            }}
-          >
-            Delete trip
-          </button>
-          <div
-            style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gridColumnGap: "1rem" }}
-          >
-            {activities?.length > 0 ? (
-              activities.map((activity) => {
-                return <ActivityCard key={activity._id} activity={activity} trip_id={_id} />;
-              })
-            ) : (
-              <p>No Activities</p>
-            )}
-          </div>
-        </div>
-      </div>
-    </>
+    <div style={{ width: "100%", background: "var(--color-grey-050" }}>
+      <TripHeader trip={data.trip} />
+      <CategoryView activities={activities} trip_id={_id} />
+    </div>
   );
 }
 
