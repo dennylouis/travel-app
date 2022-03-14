@@ -54,6 +54,13 @@
   src: url("/fonts/scto-b/SctoGroteskB-Light.woff");
 }
 
+h3 {
+  font-family: var(--font-narrow);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
 p a {
   font-weight: 600;
   text-decoration: underline;

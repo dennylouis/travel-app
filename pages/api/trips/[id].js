@@ -22,7 +22,7 @@ export default async (req, res) => {
         res.status(204);
       } else if (req.method === "GET") {
         const trip = await getTripWithOwner(req.query.id);
-        console.log(trip[0].activities);
+        // console.log(trip[0].activities);
         res.status(200).json({ trip: trip[0] });
       }
     } else {

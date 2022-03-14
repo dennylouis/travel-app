@@ -4,13 +4,17 @@
   scroll-snap-type: x mandatory;
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
+  // overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .column {
-  max-width: 400px;
+  width: calc(100vw - 5rem);
+  width: clamp(16rem, 20rem, calc(100vw - 5rem));
   padding: 0 1rem 1rem;
   scroll-snap-align: center;
   position: relative;
+  flex-shrink: 0;
 
   &:first-child {
     scroll-snap-align: start;
@@ -23,18 +27,24 @@
   & + & {
     border-left: 1px solid var(--color-grey-100);
   }
+
+  //   @media (min-width: 600px) {
+  //     width: 400px;
+  //   }
 }
 
 .categoryHeader {
-  position: sticky;
-  inset: 0 0 auto 0;
-  z-index: 1000;
+  //   position: sticky;
+  //   inset: 0 0 auto 0;
+  //   top: 3rem;
+  //   z-index: 1000;
   padding: 1rem 0;
 }
 
-.activities {
+.list {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .activity {

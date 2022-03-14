@@ -1,7 +1,10 @@
 import { formatRange } from "lib/dateHelpers";
 import styles from "./ActivityCard.module.scss";
+import classNames from "classnames/bind";
 
-export default function ActivityCard({ activity, trip_id }) {
+let cx = classNames.bind(styles);
+
+export default function ActivityCard({ activity, trip_id, isDragging }) {
   const { name, image, start_date, end_date, location, type, _id } = activity;
 
   async function deleteActivity() {
@@ -14,8 +17,10 @@ export default function ActivityCard({ activity, trip_id }) {
     });
   }
 
+  console.log("is dragging", isDragging);
+
   return (
-    <div className={styles.container}>
+    <div className={cx("container", { dragging: isDragging })}>
       <div className={styles.details}>
         <p className={styles.title}>{name}</p>
         {location && <p className="caption">{location.name}</p>}
