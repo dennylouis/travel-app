@@ -2,7 +2,7 @@ import ActivityCard from "components/ActivityCard/ActivityCard";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import styles from "./CategoryView.module.scss";
 
-export default function Column({ activities, trip_id, category }) {
+export default function Column({ activities, trip_id, category, setActiveActivity }) {
   console.log(category);
   return (
     <div className={styles.column}>
@@ -20,7 +20,7 @@ export default function Column({ activities, trip_id, category }) {
               {...droppableProvided.droppableProps}
               // style={{ background: droppableSnapshot.isDraggingOver ? "red" : "transparent" }}
             >
-              {activities.map((activity, index) => {
+              {activities?.map((activity, index) => {
                 return (
                   <Draggable draggableId={activity._id} index={index} key={activity._id}>
                     {(draggableProvided, draggableSnapshop) => {
@@ -41,6 +41,7 @@ export default function Column({ activities, trip_id, category }) {
                             activity={activity}
                             trip_id={trip_id}
                             isDragging={draggableSnapshop.isDragging}
+                            setActiveActivity={setActiveActivity}
                           />
                         </div>
                       );

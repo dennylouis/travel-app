@@ -9,12 +9,16 @@ import {
 import { getAuthToken } from "lib/cookie";
 import useSWR from "swr";
 
+import Modal from "components/Modal/Modal";
+import EditActivityForm from "components/Forms/EditActivityForm";
 import TripHeader from "components/TripPage/TripHeader/TripHeader";
 import CategoryView from "components/TripPage/CategoryView/CategoryView";
 
 export default function TripPage(props) {
   const router = useRouter();
   const { id } = router.query;
+
+  const [activeActivity, setActiveActivity] = useState(null);
 
   const { data, error } = useSWR(`/api/trips/${id}`, { initialData: { trip: props.trip } });
 
@@ -28,10 +32,16 @@ export default function TripPage(props) {
   const { name, _id, activities, owner } = data.trip;
 
   return (
-    <div style={{ width: "100%", background: "var(--color-grey-050" }}>
-      <TripHeader trip={data.trip} />
-      <CategoryView activities={activities} trip_id={_id} />
-    </div>
+    <>
+      <Modal isOpen={activeActivity} close={() => setActiveActivity(null)} size="large">
+        <EditActivityForm trip_id={_id} activity={activeActivity} />
+      </Modal>
+
+      <div style={{ width: "100%", background: "var(--color-grey-050" }}>
+        <TripHeader trip={data.trip} />
+        <CategoryView activities={activities} trip_id={_id} setActiveActivity={setActiveActivity} />
+      </div>
+    </>
   );
 }
 

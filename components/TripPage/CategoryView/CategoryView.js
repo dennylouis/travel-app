@@ -3,7 +3,7 @@ import { DragDropContext, resetServerContext } from "react-beautiful-dnd";
 import Column from "./Column";
 import styles from "./CategoryView.module.scss";
 
-export default function CategoryView({ activities, trip_id }) {
+export default function CategoryView({ activities, trip_id, setActiveActivity }) {
   const categories = ["No Category", "Category 1", "Category 2"];
   const [storedActivities, setStoredActivities] = useState(activities);
   const [columns, setColumns] = useState([]);
@@ -11,7 +11,7 @@ export default function CategoryView({ activities, trip_id }) {
   useEffect(() => {
     // Build category columns
     const columnsFromCategories = categories.map((category) => {
-      const filteredActivities = activities.filter((activity) => {
+      const filteredActivities = activities?.filter((activity) => {
         if (category === "No Category") {
           return activity.category === undefined || activity.category.name === undefined;
         } else {
@@ -27,7 +27,7 @@ export default function CategoryView({ activities, trip_id }) {
 
     setColumns(columnsFromCategories);
 
-    activities.map((activity, i) => {
+    activities?.map((activity, i) => {
       return (activity.category = { name: undefined, index: i });
     });
   }, []);
@@ -84,7 +84,15 @@ export default function CategoryView({ activities, trip_id }) {
           );
         })} */}
         {columns.map(({ title, activities }) => {
-          return <Column key={title} activities={activities} trip_id={trip_id} category={title} />;
+          return (
+            <Column
+              key={title}
+              activities={activities}
+              trip_id={trip_id}
+              category={title}
+              setActiveActivity={setActiveActivity}
+            />
+          );
         })}
       </DragDropContext>
     </div>

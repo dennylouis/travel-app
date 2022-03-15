@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 
 let cx = classNames.bind(styles);
 
-export default function ActivityCard({ activity, trip_id, isDragging }) {
+export default function ActivityCard({ activity, trip_id, isDragging, setActiveActivity }) {
   const { name, image, start_date, end_date, location, type, _id } = activity;
 
   async function deleteActivity() {
@@ -20,7 +20,10 @@ export default function ActivityCard({ activity, trip_id, isDragging }) {
   console.log("is dragging", isDragging);
 
   return (
-    <div className={cx("container", { dragging: isDragging })}>
+    <div
+      className={cx("container", { dragging: isDragging })}
+      onClick={() => setActiveActivity(activity)}
+    >
       <div className={styles.details}>
         <p className={styles.title}>{name}</p>
         {location && <p className="caption">{location.name}</p>}
@@ -29,11 +32,15 @@ export default function ActivityCard({ activity, trip_id, isDragging }) {
       </div>
 
       <img className={styles.image} src={image} />
-      {_id && (
+
+      {/* <button className={styles.delete} onClick={() => setActiveActivity(activity)}>
+        View
+      </button> */}
+      {/* {_id && (
         <button className={styles.delete} onClick={deleteActivity}>
           Delete
         </button>
-      )}
+      )} */}
     </div>
   );
 }
