@@ -2,6 +2,7 @@ import { Formik, Form } from "formik";
 import { formatISO } from "lib/dateHelpers";
 import Input from "components/Input/Input";
 import AddressInput from "components/AddressInput/AddressInput";
+import ImageUpload from "components/ImageUpload/ImageUpload";
 
 export default function EditActivityForm({ activity, trip_id }) {
   async function handleSubmit(values) {
@@ -41,6 +42,7 @@ export default function EditActivityForm({ activity, trip_id }) {
           address: activity.address,
           startDate: formatISO(activity.start_date),
           endDate: formatISO(activity.end_date),
+          image: activity.image,
         }}
         onSubmit={handleSubmit}
         validate={handleValidation}
@@ -49,6 +51,19 @@ export default function EditActivityForm({ activity, trip_id }) {
           console.log(activity, props.values);
           return (
             <Form>
+              {/* {props.values.image && (
+                <img
+                  style={{ width: "100%", aspectRatio: "4/3", objectFit: "cover" }}
+                  src={props.values.image}
+                /> */}
+              <ImageUpload
+                label="Image"
+                name="image"
+                value={props.values.image}
+                onChange={props.handleChange}
+                error={props.errors.image}
+              />
+              {/* )} */}
               <Input name="name" type="text" label="Name" placeholder="Activity name" />
               <AddressInput
                 value={props.values.address}

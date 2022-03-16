@@ -31,7 +31,7 @@ export default function ActivityCard({ activity, trip_id, isDragging, setActiveA
         {type && <p>{type}</p>}
       </div>
 
-      <img className={styles.image} src={image} />
+      <figure className={styles.imageContainer}>{image && <img src={image} />}</figure>
 
       {/* <button className={styles.delete} onClick={() => setActiveActivity(activity)}>
         View
