@@ -1,6 +1,7 @@
 import { Formik, Form } from "formik";
-import Input from "../Input/Input";
-import AddressInput from "../AddressInput/AddressInput";
+import Input from "components/Input/Input";
+import AddressInput from "components/AddressInput/AddressInput";
+import ImageUpload from "components/ImageUpload/ImageUpload";
 // import styles from "./CreateActivityForm.module.scss";
 
 export default function CreateActivityForm({ trip_id }) {
@@ -26,7 +27,7 @@ export default function CreateActivityForm({ trip_id }) {
     <div>
       <h1>New Activity</h1>
       <Formik
-        initialValues={{ name: "", notes: "", address: "", startDate: "", endDate: "" }}
+        initialValues={{ name: "", notes: "", address: "", startDate: "", endDate: "", image: "" }}
         onSubmit={handleSubmit}
         validate={handleValidation}
       >
@@ -35,6 +36,13 @@ export default function CreateActivityForm({ trip_id }) {
           return (
             <Form>
               <Input name="name" type="text" label="Name" placeholder="Activity name" />
+              <ImageUpload
+                label="Image"
+                name="image"
+                value={props.values.image}
+                onChange={props.handleChange}
+                error={props.errors.image}
+              />
               <AddressInput
                 value={props.values.address}
                 onChange={props.handleChange}

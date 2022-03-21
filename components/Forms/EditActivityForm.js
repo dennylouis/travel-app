@@ -13,6 +13,8 @@ export default function EditActivityForm({ activity, trip_id }) {
       },
       body: JSON.stringify({ ...values, trip_id, activity_id: activity._id }),
     });
+
+    console.log(response);
   }
 
   async function deleteActivity() {
@@ -39,7 +41,9 @@ export default function EditActivityForm({ activity, trip_id }) {
         initialValues={{
           name: activity.name,
           notes: activity.notes,
-          address: activity.address,
+          locationDescription: activity.location?.description,
+          locationCoordinates: activity.location?.coordinates,
+          locationPlaceID: activity.location?.placeID,
           startDate: formatISO(activity.start_date),
           endDate: formatISO(activity.end_date),
           image: activity.image,
@@ -66,9 +70,11 @@ export default function EditActivityForm({ activity, trip_id }) {
               {/* )} */}
               <Input name="name" type="text" label="Name" placeholder="Activity name" />
               <AddressInput
-                value={props.values.address}
+                locationDescription={props.values.locationDescription}
+                locationCoordinates={props.values.locationCoordinates}
+                locationPlaceID={props.values.locationPlaceID}
                 onChange={props.handleChange}
-                name="address"
+                name="locationDescription"
                 type="text"
                 label="Address"
                 placeholder="Address"
@@ -82,6 +88,9 @@ export default function EditActivityForm({ activity, trip_id }) {
               </button>
               <button type="button" onClick={deleteActivity} style={{ color: "red" }}>
                 Delete
+              </button>
+              <button onClick={() => console.log(props.values)} type="button">
+                Log values
               </button>
             </Form>
           );

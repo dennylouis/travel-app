@@ -7,7 +7,16 @@ import Input from "../Input/Input";
 // import styles from "./AddressInput.module.scss";
 import styles from "../Input/Input.module.scss";
 
-export default function AddressInput({ value, name, type, onChange, label, placeholder }) {
+export default function AddressInput({
+  locationDescription,
+  locationCoordinates,
+  locationPlaceID,
+  name,
+  type,
+  onChange,
+  label,
+  placeholder,
+}) {
   const [inputItems, setInputItems] = useState([]);
   const {
     isOpen,
@@ -30,14 +39,23 @@ export default function AddressInput({ value, name, type, onChange, label, place
       console.log("htmldf", response.data.predictions);
       setInputItems(response.data.predictions);
     },
-    onSelectedItemChange: ({ inputValue }) => {
-      const event = {
+
+    onSelectedItemChange: (props) => {
+      const { selectedItem } = props;
+      console.log("selected", props);
+
+      onChange({
         target: {
-          name,
-          value: inputValue,
+          name: "locationDescription",
+          value: selectedItem.description,
         },
-      };
-      onChange(event);
+      });
+      onChange({
+        target: {
+          name: "locationPlaceID",
+          value: selectedItem.place_id,
+        },
+      });
     },
   });
 
@@ -60,7 +78,7 @@ export default function AddressInput({ value, name, type, onChange, label, place
           type: "text",
           placeholder: placeholder,
           onChange: (e) => onChange(e),
-          value,
+          value: locationDescription,
           id: name,
           name,
         })}

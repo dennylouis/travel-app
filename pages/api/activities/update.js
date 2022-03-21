@@ -10,8 +10,11 @@ export default async (req, res) => {
     const { _id: user } = await readToken(token);
 
     if (user) {
-      const { name, notes, image, tags, startDate, endDate, trip_id, activity_id } = req.body;
+      const { name, notes, image, tags, address, startDate, endDate, trip_id, activity_id } =
+        req.body;
       //   console.log("trip", trip_id);
+
+      console.log(image);
 
       const activity = await editActivity({
         trip_id: trip_id,
@@ -20,6 +23,7 @@ export default async (req, res) => {
         notes: notes,
         image: image,
         tags: tags,
+        address: address,
         start_date: startDate,
         end_date: endDate,
       });

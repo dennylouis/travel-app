@@ -7,6 +7,10 @@ import bytesToMegabytes from "lib/bytesToMegabytes";
 // import DeleteButton from "../DeleteButton/DeleteButton";
 import styles from "./ImageUpload.module.scss";
 
+function updateFormikValue(name, value, onChange) {
+  onChange({ target: { name, value } });
+}
+
 export default function ImageUpload({ label, name, value, onChange, error, required }) {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -16,7 +20,7 @@ export default function ImageUpload({ label, name, value, onChange, error, requi
   const onDrop = useCallback(async (files) => {
     const formData = new FormData();
     formData.append("file", files[0]);
-    formData.append("upload_preset", "form_upload");
+    formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
 
     const response = await axios.post(process.env.NEXT_PUBLIC_CLOUDINARY_ENDPOINT, formData, {
       onUploadProgress: (progressEvent) => {
@@ -31,7 +35,7 @@ export default function ImageUpload({ label, name, value, onChange, error, requi
 
     // updateFormikValue(name, response.data.secure_url, onChange);
 
-    onChange({ target: { name, value: response.data.secure_url } });
+    updateFormikValue(name, response.data.secure_url, onChange);
   }, []);
 
   useEffect(() => {
@@ -41,7 +45,7 @@ export default function ImageUpload({ label, name, value, onChange, error, requi
 
   const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
     onDrop,
-    accept: "image/x-png,image/gif,image/jpeg",
+    accept: "image/*",
     multple: false,
   });
 
