@@ -5,7 +5,7 @@ export default function Logout() {
 
   async function handleClick() {
     const response = await fetch("/api/users/logout");
-    console.log(response);
+    // console.log(response);
 
     if (response.ok) {
       router.push("/login");

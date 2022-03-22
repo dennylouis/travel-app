@@ -8,8 +8,8 @@ export default function TripRow({ title, trips }) {
       <div className={styles.row}>
         {trips.map((trip) => {
           return (
-            <div className={styles.cardWrapper}>
-              <TripCard key={trip._id} trip={trip} />
+            <div key={trip._id} className={styles.cardWrapper}>
+              <TripCard trip={trip} />
             </div>
           );
         })}

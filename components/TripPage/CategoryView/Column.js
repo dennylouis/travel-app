@@ -3,7 +3,7 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 import styles from "./CategoryView.module.scss";
 
 export default function Column({ activities, trip_id, category, setActiveActivity }) {
-  console.log(category);
+  // console.log(category);
   return (
     <div className={styles.column}>
       <header className={styles.categoryHeader}>
@@ -24,7 +24,7 @@ export default function Column({ activities, trip_id, category, setActiveActivit
                 return (
                   <Draggable draggableId={activity._id} index={index} key={activity._id}>
                     {(draggableProvided, draggableSnapshop) => {
-                      console.log(draggableSnapshop);
+                      // console.log(draggableSnapshop);
                       return (
                         <div
                           className={styles.activity}

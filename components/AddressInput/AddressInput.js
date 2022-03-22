@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useCombobox } from "downshift";
 import axios from "axios";
 import Input from "../Input/Input";
+
 // import { Field } from "formik";
 
 // import styles from "./AddressInput.module.scss";
@@ -18,6 +19,7 @@ export default function AddressInput({
   placeholder,
 }) {
   const [inputItems, setInputItems] = useState([]);
+
   const {
     isOpen,
     getLabelProps,
@@ -36,24 +38,37 @@ export default function AddressInput({
       // const suggestions = response.data.predictions.map((result) => {
       //   return result;
       // });
-      console.log("htmldf", response.data.predictions);
+      // console.log("htmldf", response.data.predictions);
       setInputItems(response.data.predictions);
     },
 
-    onSelectedItemChange: (props) => {
+    onSelectedItemChange: async (props) => {
       const { selectedItem } = props;
-      console.log("selected", props);
+      // console.log("selected", props);
 
       onChange({
         target: {
-          name: "locationDescription",
+          name: "location_description",
           value: selectedItem.description,
         },
       });
       onChange({
         target: {
-          name: "locationPlaceID",
+          name: "location_place_id",
           value: selectedItem.place_id,
+        },
+      });
+
+      const response = await axios.post("/api/getLatLong", {
+        address: selectedItem.description,
+      });
+
+      // console.log("lat long", response.data);
+
+      onChange({
+        target: {
+          name: "location_coordinates",
+          value: { ...response.data.results[0].geometry.location },
         },
       });
     },

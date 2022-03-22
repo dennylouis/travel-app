@@ -17,7 +17,7 @@ export default function ActivityCard({ activity, trip_id, isDragging, setActiveA
     });
   }
 
-  console.log("is dragging", isDragging);
+  // console.log("is dragging", isDragging);
 
   return (
     <div

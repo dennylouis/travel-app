@@ -10,7 +10,18 @@ export default async (req, res) => {
     const { _id: user } = await readToken(token);
 
     if (user) {
-      const { name, notes, image, tags, startDate, endDate, trip_id } = req.body;
+      const {
+        name,
+        notes,
+        image,
+        tags,
+        startDate,
+        endDate,
+        trip_id,
+        location_description,
+        location_coordinates,
+        location_place_id,
+      } = req.body;
       console.log("trip", trip_id);
 
       const activity = await addActivity({
@@ -21,6 +32,9 @@ export default async (req, res) => {
         tags: tags,
         start_date: startDate,
         end_date: endDate,
+        location_description: location_description,
+        location_coordinates: location_coordinates,
+        location_place_id: location_place_id,
       });
 
       res.status(201);

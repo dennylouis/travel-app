@@ -3,7 +3,7 @@ import Input from "../Input/Input";
 
 export default function CreateTripForm() {
   async function handleSubmit(values) {
-    console.log("hello?");
+    // console.log("hello?");
     const response = await fetch("/api/trips/create", {
       method: "POST",
       headers: {
@@ -12,7 +12,7 @@ export default function CreateTripForm() {
       body: JSON.stringify({ ...values }),
     });
 
-    console.log(response);
+    // console.log(response);
   }
 
   const handleValidation = (values) => {

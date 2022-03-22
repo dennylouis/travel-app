@@ -14,7 +14,7 @@ export default function EditActivityForm({ activity, trip_id }) {
       body: JSON.stringify({ ...values, trip_id, activity_id: activity._id }),
     });
 
-    console.log(response);
+    // console.log(response);
   }
 
   async function deleteActivity() {
@@ -41,9 +41,9 @@ export default function EditActivityForm({ activity, trip_id }) {
         initialValues={{
           name: activity.name,
           notes: activity.notes,
-          locationDescription: activity.location?.description,
-          locationCoordinates: activity.location?.coordinates,
-          locationPlaceID: activity.location?.placeID,
+          location_description: activity.location_description,
+          location_coordinates: activity.location_coordinates,
+          location_place_id: activity.location_place_id,
           startDate: formatISO(activity.start_date),
           endDate: formatISO(activity.end_date),
           image: activity.image,
@@ -52,7 +52,7 @@ export default function EditActivityForm({ activity, trip_id }) {
         validate={handleValidation}
       >
         {(props) => {
-          console.log(activity, props.values);
+          //   console.log(activity, props.values);
           return (
             <Form>
               {/* {props.values.image && (
@@ -70,15 +70,21 @@ export default function EditActivityForm({ activity, trip_id }) {
               {/* )} */}
               <Input name="name" type="text" label="Name" placeholder="Activity name" />
               <AddressInput
-                locationDescription={props.values.locationDescription}
-                locationCoordinates={props.values.locationCoordinates}
-                locationPlaceID={props.values.locationPlaceID}
+                locationDescription={props.values.location_description}
+                locationCoordinates={props.values.location_coordinates}
+                locationPlaceID={props.values.location_place_id}
                 onChange={props.handleChange}
-                name="locationDescription"
+                name="location_description"
                 type="text"
                 label="Address"
                 placeholder="Address"
               />
+              {props.values.location_coordinates && (
+                <img
+                  src={`https://maps.googleapis.com/maps/api/staticmap?center=${props.values.location_coordinates.lat},${props.values.location_coordinates.lng}&zoom=14&size=400x400&key=${process.env.NEXT_PUBLIC_PLACES_API_KEY}`}
+                />
+              )}
+
               <Input name="notes" type="text" label="Notes" placeholder="Notes" />
               <Input name="startDate" type="date" label="Start Date" placeholder="Notes" />
               <Input name="endDate" type="date" label="End Date" placeholder="Notes" />

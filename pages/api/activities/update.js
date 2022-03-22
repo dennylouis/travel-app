@@ -10,8 +10,20 @@ export default async (req, res) => {
     const { _id: user } = await readToken(token);
 
     if (user) {
-      const { name, notes, image, tags, address, startDate, endDate, trip_id, activity_id } =
-        req.body;
+      const {
+        name,
+        notes,
+        image,
+        tags,
+        // address,
+        startDate,
+        endDate,
+        trip_id,
+        activity_id,
+        location_description,
+        location_coordinates,
+        location_place_id,
+      } = req.body;
       //   console.log("trip", trip_id);
 
       console.log(image);
@@ -23,9 +35,12 @@ export default async (req, res) => {
         notes: notes,
         image: image,
         tags: tags,
-        address: address,
+        // address: address,
         start_date: startDate,
         end_date: endDate,
+        location_description: location_description,
+        location_coordinates: location_coordinates,
+        location_place_id: location_place_id,
       });
 
       res.status(201);

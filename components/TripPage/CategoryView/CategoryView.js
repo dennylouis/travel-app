@@ -57,7 +57,7 @@ export default function CategoryView({ activities, trip_id, setActiveActivity })
 
   resetServerContext();
 
-  console.log(columns);
+  // console.log(columns);
 
   return (
     <div className={styles.columnContainer}>
