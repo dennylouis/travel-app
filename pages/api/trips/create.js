@@ -24,7 +24,7 @@ export default async (req, res) => {
       });
 
       console.log(trip);
-      console.log("is this working?");
+      // console.log("is this working?");
 
       res.status(201);
       res.json({ trip });

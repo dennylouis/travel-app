@@ -36,7 +36,6 @@ export default function EditActivityForm({ activity, trip_id }) {
 
   return (
     <div>
-      <h1>{activity.name}</h1>
       <Formik
         initialValues={{
           name: activity.name,
@@ -60,6 +59,7 @@ export default function EditActivityForm({ activity, trip_id }) {
                   style={{ width: "100%", aspectRatio: "4/3", objectFit: "cover" }}
                   src={props.values.image}
                 /> */}
+              <h1>{props.values.name}</h1>
               <ImageUpload
                 label="Image"
                 name="image"
@@ -81,7 +81,8 @@ export default function EditActivityForm({ activity, trip_id }) {
               />
               {props.values.location_coordinates && (
                 <img
-                  src={`https://maps.googleapis.com/maps/api/staticmap?center=${props.values.location_coordinates.lat},${props.values.location_coordinates.lng}&zoom=14&size=400x400&key=${process.env.NEXT_PUBLIC_PLACES_API_KEY}`}
+                  style={{ width: "100%" }}
+                  src={`https://maps.googleapis.com/maps/api/staticmap?center=${props.values.location_coordinates.lat},${props.values.location_coordinates.lng}&zoom=14&size=800x400&key=${process.env.NEXT_PUBLIC_PLACES_API_KEY}`}
                 />
               )}
 

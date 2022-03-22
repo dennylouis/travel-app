@@ -66,7 +66,8 @@ export default function CreateActivityForm({ trip_id }) {
               />
               {props.values.location_coordinates && (
                 <img
-                  src={`https://maps.googleapis.com/maps/api/staticmap?center=${props.values.location_coordinates.lat},${props.values.location_coordinates.lng}&zoom=14&size=400x400&key=${process.env.NEXT_PUBLIC_PLACES_API_KEY}`}
+                  style={{ width: "100%" }}
+                  src={`https://maps.googleapis.com/maps/api/staticmap?center=${props.values.location_coordinates.lat},${props.values.location_coordinates.lng}&zoom=14&size=800x400&key=${process.env.NEXT_PUBLIC_PLACES_API_KEY}`}
                 />
               )}
               <Input name="notes" type="text" label="Notes" placeholder="Notes" />
