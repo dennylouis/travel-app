@@ -1,0 +1,33 @@
+.container {
+  input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-family: inherit;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 2rem;
+    display: block;
+    width: 100%;
+    color: var(--color-grey-900);
+    box-sizing: border-box;
+    border: none;
+    border-radius: 0.5rem;
+    outline: none;
+    box-shadow: none;
+    transition: all 150ms;
+    padding: 0.5rem;
+    height: 3rem;
+    background-color: transparent;
+
+    &::placeholder {
+      color: var(--color-grey-600);
+      opacity: 0.5;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: var(--color-black-a05);
+    }
+  }
+}

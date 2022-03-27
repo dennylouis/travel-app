@@ -51,15 +51,10 @@ export default function ImageUpload({ label, name, value, onChange, error, requi
 
   return (
     <div className={styles.container}>
-      <label>
-        {label}
-        {required ? " * " : null}
-        {error ? <span style={{ color: "red" }}>{error}</span> : null}
-      </label>
       {value ? (
         <div className={styles.imagePreview}>
           <img src={value} />
-          <button onClick={() => updateFormikValue(name, "", onChange)}>Delete</button>
+          <button onClick={() => updateFormikValue(name, "", onChange)}>Remove Image</button>
         </div>
       ) : (
         <div

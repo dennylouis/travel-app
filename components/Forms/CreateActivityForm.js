@@ -1,12 +1,17 @@
 import { Formik, Form } from "formik";
+import useSWR, { useSWRConfig } from "swr";
+import axios from "axios";
+import FeatureInput from "components/FeatureInput/Input";
 import Input from "components/Input/Input";
 import AddressInput from "components/AddressInput/AddressInput";
 import ImageUpload from "components/ImageUpload/ImageUpload";
 // import styles from "./CreateActivityForm.module.scss";
 
-export default function CreateActivityForm({ trip_id }) {
+export default function CreateActivityForm({ trip_id, close }) {
+  const { mutate } = useSWRConfig();
   // console.log(trip_id);
   async function handleSubmit(values) {
+    // await axios.get(URL, {
     const response = await fetch("/api/activities/create", {
       method: "POST",
       headers: {
@@ -14,6 +19,15 @@ export default function CreateActivityForm({ trip_id }) {
       },
       body: JSON.stringify({ ...values, trip_id }),
     });
+
+    console.log(response);
+
+    if (response.ok) {
+      // console.log(`/api/trips/${trip_id}`, mutate);
+      const data = await mutate(`/api/trips/${trip_id}`);
+      console.log(data);
+      close();
+    }
   }
 
   const handleValidation = (values) => {
@@ -25,7 +39,7 @@ export default function CreateActivityForm({ trip_id }) {
 
   return (
     <div>
-      <h1>New Activity</h1>
+      {/* <h1>New Activity</h1> */}
       <Formik
         initialValues={{
           name: "",
@@ -45,7 +59,6 @@ export default function CreateActivityForm({ trip_id }) {
           // console.log(props);
           return (
             <Form>
-              <Input name="name" type="text" label="Name" placeholder="Activity name" />
               <ImageUpload
                 label="Image"
                 name="image"
@@ -53,27 +66,29 @@ export default function CreateActivityForm({ trip_id }) {
                 onChange={props.handleChange}
                 error={props.errors.image}
               />
-              <AddressInput
-                locationDescription={props.values.location_description}
-                locationCoordinates={props.values.location_coordinates}
-                locationPlaceID={props.values.location_place_id}
-                // value={props.values.address}
-                onChange={props.handleChange}
-                name="location_description"
-                type="text"
-                label="Address"
-                placeholder="Address"
-              />
-              {props.values.location_coordinates && (
-                <img
-                  style={{ width: "100%" }}
-                  src={`https://maps.googleapis.com/maps/api/staticmap?center=${props.values.location_coordinates.lat},${props.values.location_coordinates.lng}&zoom=14&size=800x400&key=${process.env.NEXT_PUBLIC_PLACES_API_KEY}`}
+              <div style={{ padding: "0.5rem 1rem" }}>
+                <FeatureInput name="name" type="text" label="Name" placeholder="Activity name" />
+                <AddressInput
+                  locationDescription={props.values.location_description}
+                  locationCoordinates={props.values.location_coordinates}
+                  locationPlaceID={props.values.location_place_id}
+                  // value={props.values.address}
+                  onChange={props.handleChange}
+                  name="location_description"
+                  type="text"
+                  label="Address"
+                  placeholder="Address"
                 />
-              )}
-              <Input name="notes" type="text" label="Notes" placeholder="Notes" />
-              <Input name="startDate" type="date" label="Start Date" placeholder="Notes" />
-              <Input name="endDate" type="date" label="End Date" placeholder="Notes" />
-
+                {props.values.location_coordinates && (
+                  <img
+                    style={{ width: "100%" }}
+                    src={`https://maps.googleapis.com/maps/api/staticmap?center=${props.values.location_coordinates.lat},${props.values.location_coordinates.lng}&zoom=14&size=800x400&key=${process.env.NEXT_PUBLIC_PLACES_API_KEY}`}
+                  />
+                )}
+                <Input name="notes" type="text" label="Notes" placeholder="Notes" />
+                <Input name="startDate" type="date" label="Start Date" placeholder="Notes" />
+                <Input name="endDate" type="date" label="End Date" placeholder="Notes" />
+              </div>
               <button type="submit" disabled={!props.isValid}>
                 Submit
               </button>

@@ -36,14 +36,14 @@ export default function Modal({ isOpen, close, children, size }) {
             }}
           >
             <button className={styles.closeButton} onClick={close}>
-              <svg width="15px" height="15px" viewBox="0 0 10 10">
-                <g stroke="#666666" strokeWidth="1" fill="none">
-                  <line x1="1" y1="1" x2="9" y2="9" />
-                  <line x1="1" y1="9" x2="9" y2="1" />
+              <svg width="24px" height="24px" viewBox="0 0 24 24">
+                <g stroke="#000000" strokeWidth="2" fill="none">
+                  <line x1="7" y1="7" x2="17" y2="17" />
+                  <line x1="7" y1="17" x2="17" y2="7" />
                 </g>
               </svg>
             </button>
-            {children}
+            <div className={styles.contents}>{children}</div>
           </motion.div>
           <motion.div
             className={styles.overlay}

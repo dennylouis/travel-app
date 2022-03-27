@@ -27,7 +27,7 @@ export default async (req, res) => {
       //   });
 
       res.status(201);
-      res.json({ activity });
+      res.json({ activity_id });
     } else {
       console.log("not logged in");
     }

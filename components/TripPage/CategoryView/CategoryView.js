@@ -30,7 +30,7 @@ export default function CategoryView({ activities, trip_id, setActiveActivity })
     activities?.map((activity, i) => {
       return (activity.category = { name: undefined, index: i });
     });
-  }, []);
+  }, [activities]);
 
   function onDragEnd(result) {
     const { destination, source, draggableId } = result;

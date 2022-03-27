@@ -15,7 +15,7 @@ export default function TripHeader({ trip }) {
   return (
     <>
       <Modal isOpen={showModal} close={() => setShowModal(false)} size="large">
-        <CreateActivityForm trip_id={_id} />
+        <CreateActivityForm trip_id={_id} close={() => setShowModal(false)} />
       </Modal>
 
       <div className={styles.stickyBit}>

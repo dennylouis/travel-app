@@ -5,7 +5,8 @@ import classNames from "classnames/bind";
 let cx = classNames.bind(styles);
 
 export default function ActivityCard({ activity, trip_id, isDragging, setActiveActivity }) {
-  const { name, image, start_date, end_date, location, type, _id } = activity;
+  const { name, image, start_date, end_date, location_description, type, _id } = activity;
+  console.log(activity);
 
   async function deleteActivity() {
     await fetch("/api/activities/delete", {
@@ -26,7 +27,7 @@ export default function ActivityCard({ activity, trip_id, isDragging, setActiveA
     >
       <div className={styles.details}>
         <p className={styles.title}>{name}</p>
-        {location && <p className="caption">{location.name}</p>}
+        {location && <p className="caption">{location_description}</p>}
         {start_date && <p className="caption">{formatRange(start_date, end_date)}</p>}
         {type && <p>{type}</p>}
       </div>

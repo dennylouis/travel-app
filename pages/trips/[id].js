@@ -34,7 +34,11 @@ export default function TripPage(props) {
   return (
     <>
       <Modal isOpen={activeActivity} close={() => setActiveActivity(null)} size="large">
-        <EditActivityForm trip_id={_id} activity={activeActivity} />
+        <EditActivityForm
+          trip_id={_id}
+          activity={activeActivity}
+          close={() => setActiveActivity(null)}
+        />
       </Modal>
 
       <div style={{ width: "100%", background: "var(--color-grey-050" }}>

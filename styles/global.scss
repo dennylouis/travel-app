@@ -18,6 +18,7 @@
   --color-overlay: hsla(0, 0%, 50%, 0.4);
   --color-black-a05: hsla(0, 0%, 0%, 0.05);
   --color-black-a10: hsla(0, 0%, 0%, 0.1);
+  --color-black-a50: hsla(0, 0%, 0%, 0.5);
 
   // Shadows
   --inner-shadow-1px: inset 0 0 0 1px var(--color-black-a05);
@@ -25,6 +26,8 @@
   // Fonts
   --font-wide: scto-a, sans-serif;
   --font-narrow: scto-b, sans-serif;
+
+  --font-sans: social, sans-serif;
 
   // Design Tokens
   --color-background: var(--color-grey-020);
@@ -40,7 +43,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: var(--font-narrow);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -54,7 +57,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-wide);
+  font-family: var(--font-sans);
 }
 
 h1 {
