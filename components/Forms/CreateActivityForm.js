@@ -68,6 +68,7 @@ export default function CreateActivityForm({ trip_id, close }) {
               />
               <div style={{ padding: "0.5rem 1rem" }}>
                 <FeatureInput name="name" type="text" label="Name" placeholder="Activity name" />
+                <Input name="notes" type="text" label="Notes" placeholder="Notes" />
                 <AddressInput
                   locationDescription={props.values.location_description}
                   locationCoordinates={props.values.location_coordinates}
@@ -79,13 +80,7 @@ export default function CreateActivityForm({ trip_id, close }) {
                   label="Address"
                   placeholder="Address"
                 />
-                {props.values.location_coordinates && (
-                  <img
-                    style={{ width: "100%" }}
-                    src={`https://maps.googleapis.com/maps/api/staticmap?center=${props.values.location_coordinates.lat},${props.values.location_coordinates.lng}&zoom=14&size=800x400&key=${process.env.NEXT_PUBLIC_PLACES_API_KEY}`}
-                  />
-                )}
-                <Input name="notes" type="text" label="Notes" placeholder="Notes" />
+
                 <Input name="startDate" type="date" label="Start Date" placeholder="Notes" />
                 <Input name="endDate" type="date" label="End Date" placeholder="Notes" />
               </div>

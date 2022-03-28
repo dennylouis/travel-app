@@ -81,25 +81,23 @@ export default function ImageUpload({ label, name, value, onChange, error, requi
               <span className={`${styles.icon} ${styles.loadingIcon}`} />
             </>
           ) : isDragAccept ? (
-            <>
+            <div className={styles.dottedLine}>
               <span>Looks good, drop it here</span>
-              <span className={styles.icon}>📤</span>
-            </>
+            </div>
           ) : isDragReject ? (
             <>
               <span>Sorry, we can't use that</span>
-              <span className={styles.icon}>📤</span>
+              {/* <span className={styles.icon}>📤</span> */}
             </>
           ) : isDragActive ? (
             <>
               <span>Drop the files here ...</span>
-              <span className={styles.icon}>📤</span>
+              {/* <span className={styles.icon}>📤</span> */}
             </>
           ) : (
-            <>
+            <div className={styles.dottedLine}>
               <span>Select file or drag & drop</span>
-              <span className={styles.icon}>📤</span>
-            </>
+            </div>
           )}
 
           <motion.div

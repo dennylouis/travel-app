@@ -19,9 +19,11 @@
 
 .dropzone {
   font-family: var(--font-sans);
+
   //   color: var(--color-placeholder-white);
-  font-style: italic;
-  border: 1px dashed hsla(0, 0%, 100%, 0.2);
+  //   font-style: italic;
+  //   border: 1px dashed hsla(0, 0%, 100%, 0.2);
+  height: 100%;
   background: transparent;
   font-size: 1.5rem;
   line-height: 1;
@@ -34,6 +36,10 @@
   grid-template-columns: 1fr auto auto;
   transition: border-color 200ms, color 200ms;
   position: relative;
+  color: var(--color-black-a50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   //   &:hover {
   //     color: var(--color-white);
@@ -42,27 +48,35 @@
 
   span {
     z-index: 10;
+    font-size: 0.875rem;
+  }
+
+  .dottedLine {
+    border-radius: 0.5rem;
+    // border: 1px dashed var(--color-black-a10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
   }
 }
 
 .dropzoneAccept {
   //   border-color: var(--color-placeholder-white);
   //   color: var(--color-white);
+  background-color: var(--color-blue-100);
+  color: var(--color-blue-600);
 }
 
 .dropzoneReject {
   //   color: var(--color-white);
   //   border-color: var(--color-orange);
+  background-color: var(--color-red-100);
+  color: var(--color-red-600);
 }
 
 .uploading {
-  //   color: var(--color-white);
-  border-color: var(--color-green);
-  border-style: solid;
-
-  &:hover {
-    border-color: var(--color-green);
-  }
 }
 
 .progressBar {
@@ -160,6 +174,7 @@
   }
 
   button {
+    opacity: 0;
     position: absolute;
     inset: auto 1rem 1rem auto;
     font-size: 0.75rem;
@@ -169,5 +184,16 @@
     color: var(--color-white);
     border: 0;
     backdrop-filter: blur(1rem);
+    transition: background-color 200ms, opacity 200ms;
+
+    &:hover {
+      background-color: var(--color-black-a80);
+    }
+  }
+
+  &:hover {
+    button {
+      opacity: 1;
+    }
   }
 }

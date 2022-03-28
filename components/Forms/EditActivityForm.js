@@ -1,3 +1,4 @@
+import { useRef, useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import { formatISO } from "lib/dateHelpers";
 import FeatureInput from "components/FeatureInput/Input";
@@ -8,6 +9,23 @@ import useSWR, { useSWRConfig } from "swr";
 
 export default function EditActivityForm({ activity, trip_id, close }) {
   const { mutate, ...restConfig } = useSWRConfig();
+
+  const titleRef = useRef();
+  //   const [headerIsStuck, setHeaderIsStuck] = useState(false);
+
+  //   function handleWidgetScroll(e) {
+  //     console.log(titleRef.current)
+  //   }
+
+  //   useEffect(() => {
+  //     widgetRef.current.addEventListener("scroll", handleWidgetScroll, {
+  //       passive: true,
+  //     });
+
+  //     return () => {
+  //       widgetRef.current.removeEventListener("scroll", handleWidgetScroll);
+  //     };
+  //   }, []);
 
   async function handleSubmit(values) {
     const response = await fetch("/api/activities/update", {
@@ -76,10 +94,10 @@ export default function EditActivityForm({ activity, trip_id, close }) {
                 error={props.errors.image}
               />
 
-              {/* <div style={{  }}> */}
               <div
+                ref={titleRef}
                 style={{
-                  padding: "0.5rem 1rem",
+                  padding: "0.5rem 3.5rem 0.5rem 1rem",
                   position: "sticky",
                   top: 0,
                   left: 0,
@@ -105,12 +123,6 @@ export default function EditActivityForm({ activity, trip_id, close }) {
                   label="Address"
                   placeholder="Address"
                 />
-                {props.values.location_coordinates && (
-                  <img
-                    style={{ width: "100%" }}
-                    src={`https://maps.googleapis.com/maps/api/staticmap?center=${props.values.location_coordinates.lat},${props.values.location_coordinates.lng}&zoom=14&size=800x400&key=${process.env.NEXT_PUBLIC_PLACES_API_KEY}`}
-                  />
-                )}
 
                 <Input name="startDate" type="date" label="Start Date" placeholder="Notes" />
                 <Input name="endDate" type="date" label="End Date" placeholder="Notes" />

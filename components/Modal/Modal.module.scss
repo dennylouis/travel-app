@@ -98,10 +98,10 @@
   transition: all 150ms;
   border: none;
   background-color: hsla(0, 0%, 96%, 0.75);
-  backdrop-filter: blur(24px);
+  backdrop-filter: blur(0.5rem);
 
   svg {
     display: block;
-    opacity: 0.6;
+    opacity: 0.8;
   }
 }
