@@ -87,38 +87,46 @@ export default function AddressInput({
       </label>
 
       {/* <Input name={name} type={type} label={label} placeholder={placeholder} /> */}
+      <div>
+        <input
+          {...getInputProps({
+            type: "text",
+            placeholder: placeholder,
+            onChange: (e) => onChange(e),
+            value: locationDescription,
+            id: name,
+            name,
+          })}
+        />
 
-      <input
-        {...getInputProps({
-          type: "text",
-          placeholder: placeholder,
-          onChange: (e) => onChange(e),
-          value: locationDescription,
-          id: name,
-          name,
-        })}
-      />
+        <div {...getMenuProps()}>
+          {isOpen && inputItems.length > 0 && (
+            <div
+            // className={styles.combobox}
+            >
+              {inputItems.map((item, index) => {
+                const highlighted = highlightedIndex === index;
+                return (
+                  <div
+                    // className={`${styles.comboboxItem} ${
+                    //   highlighted ? styles.highlightedComboboxItem : ""
+                    // }`}
+                    key={`${item}${index}`}
+                    {...getItemProps({ item, index })}
+                  >
+                    <p>{item.description}</p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
 
-      <div {...getMenuProps()}>
-        {isOpen && inputItems.length > 0 && (
-          <div
-          // className={styles.combobox}
-          >
-            {inputItems.map((item, index) => {
-              const highlighted = highlightedIndex === index;
-              return (
-                <div
-                  // className={`${styles.comboboxItem} ${
-                  //   highlighted ? styles.highlightedComboboxItem : ""
-                  // }`}
-                  key={`${item}${index}`}
-                  {...getItemProps({ item, index })}
-                >
-                  <p>{item.description}</p>
-                </div>
-              );
-            })}
-          </div>
+        {locationCoordinates.lat && (
+          <img
+            style={{ width: "100%", borderRadius: 8 }}
+            src={`https://maps.googleapis.com/maps/api/staticmap?center=${locationCoordinates.lat},${locationCoordinates.lng}&zoom=14&size=800x400&key=${process.env.NEXT_PUBLIC_PLACES_API_KEY}`}
+          />
         )}
       </div>
     </div>
