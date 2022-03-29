@@ -103,7 +103,7 @@ export default function EditActivityForm({ activity, trip_id, close }) {
                   left: 0,
                   backgroundColor: "hsla(0,0%,100%,0.6)",
                   backdropFilter: "blur(24px)",
-                  boxShadow: "0 1px 0 var(--color-black-a10)",
+                  // boxShadow: "0 1px 0 var(--color-black-a10)",
                 }}
               >
                 <FeatureInput name="name" type="text" placeholder="Activity name" />
