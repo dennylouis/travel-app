@@ -6,7 +6,7 @@ let cx = classNames.bind(styles);
 
 export default function ActivityCard({ activity, trip_id, isDragging, setActiveActivity }) {
   const { name, image, start_date, end_date, location_description, type, _id } = activity;
-  console.log(activity);
+  // console.log(activity);
 
   async function deleteActivity() {
     await fetch("/api/activities/delete", {

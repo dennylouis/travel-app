@@ -20,12 +20,12 @@ export default function CreateActivityForm({ trip_id, close }) {
       body: JSON.stringify({ ...values, trip_id }),
     });
 
-    console.log(response);
+    // console.log(response);
 
     if (response.ok) {
       // console.log(`/api/trips/${trip_id}`, mutate);
       const data = await mutate(`/api/trips/${trip_id}`);
-      console.log(data);
+      // console.log(data);
       close();
     }
   }
