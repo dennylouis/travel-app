@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { formatRange } from "lib/dateHelpers";
 import styles from "./TripHeader.module.scss";
 
-export default function TripHeader({ trip }) {
+export default function TripHeader({ trip, activeView, setView }) {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const { name, start_date, end_date, description, _id, owner } = trip;
@@ -38,6 +38,9 @@ export default function TripHeader({ trip }) {
           }}
         >
           <Avatar user={owner[0]} />
+          {/* {editors.map((editor) => (
+            <Avatar user={editor} />
+          ))} */}
           {/* <button>Invite a traveller</button> */}
         </div>
       </div>
@@ -47,6 +50,15 @@ export default function TripHeader({ trip }) {
           <h2>{name}</h2>
           <p className="caption">{formatRange(start_date, end_date)}</p>
           <p className="caption">{description}</p>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <button onClick={() => setView("category")} disabled={activeView === "category"}>
+            Category View
+          </button>
+          <button onClick={() => setView("map")} disabled={activeView === "map"}>
+            Map View
+          </button>
         </div>
 
         <div className={styles.actions}>

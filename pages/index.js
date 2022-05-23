@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { readToken } from "lib/tokenHelpers";
-import { getTrips } from "lib/dbHelpers";
+import { getTrips, getSharedTrips } from "lib/dbHelpers";
 import { getAuthToken } from "lib/cookie";
 import { isBeforeToday, isAfterToday } from "lib/dateHelpers";
 import Logout from "components/Logout/Logout";
@@ -29,11 +29,12 @@ export default function Dashboard(props) {
   if (!data) return <div>Loading...</div>;
 
   // const { name, start_date, end_date, description, _id, activities, owner } = data.trips;
+  console.log(props);
   const { trips } = data;
 
-  const upcomingTrips = trips.filter(({ start_date }) => isAfterToday(start_date));
-  const completedTrips = trips.filter(({ end_date }) => isBeforeToday(end_date));
-  const currentTrips = trips.filter(
+  const upcomingTrips = trips?.filter(({ start_date }) => isAfterToday(start_date));
+  const completedTrips = trips?.filter(({ end_date }) => isBeforeToday(end_date));
+  const currentTrips = trips?.filter(
     ({ start_date, end_date }) => isBeforeToday(start_date) && isAfterToday(end_date)
   );
 
@@ -92,7 +93,11 @@ export async function getServerSideProps({ req }) {
 
     if (token) {
       const user = await readToken(token);
-      const trips = await getTrips(user._id);
+      const owned = await getTrips(user._id);
+      const shared = await getSharedTrips(user._id);
+
+      const trips = [...owned, ...shared];
+      console.log(owned, shared, trips);
 
       return { props: { user, trips: JSON.parse(JSON.stringify(trips)) } };
     } else {

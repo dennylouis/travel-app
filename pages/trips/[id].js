@@ -13,12 +13,14 @@ import Modal from "components/Modal/Modal";
 import EditActivityForm from "components/Forms/EditActivityForm";
 import TripHeader from "components/TripPage/TripHeader/TripHeader";
 import CategoryView from "components/TripPage/CategoryView/CategoryView";
+import MapView from "components/TripPage/MapView/MapView";
 
 export default function TripPage(props) {
   const router = useRouter();
   const { id } = router.query;
 
   const [activeActivity, setActiveActivity] = useState(null);
+  const [view, setView] = useState("category");
 
   const { data, error } = useSWR(`/api/trips/${id}`, { initialData: { trip: props.trip } });
 
@@ -31,6 +33,31 @@ export default function TripPage(props) {
 
   const { name, _id, activities, owner } = data.trip;
 
+  function renderView() {
+    switch (view) {
+      case "category":
+        return (
+          <CategoryView
+            activities={activities}
+            trip_id={_id}
+            setActiveActivity={setActiveActivity}
+          />
+        );
+      case "map":
+        return (
+          <MapView activities={activities} trip_id={_id} setActiveActivity={setActiveActivity} />
+        );
+      default:
+        return (
+          <CategoryView
+            activities={activities}
+            trip_id={_id}
+            setActiveActivity={setActiveActivity}
+          />
+        );
+    }
+  }
+
   return (
     <>
       <Modal isOpen={activeActivity} close={() => setActiveActivity(null)} size="large">
@@ -42,8 +69,13 @@ export default function TripPage(props) {
       </Modal>
 
       <div style={{ width: "100%", background: "var(--color-grey-050" }}>
-        <TripHeader trip={data.trip} />
-        <CategoryView activities={activities} trip_id={_id} setActiveActivity={setActiveActivity} />
+        <TripHeader trip={data.trip} activeView={view} setView={setView} />
+
+        {/* {switch (view) {
+          case 'category':
+        return <CategoryView activities={activities} trip_id={_id} setActiveActivity={setActiveActivity} />
+        }} */}
+        {renderView()}
       </div>
     </>
   );
