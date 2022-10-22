@@ -1,5 +1,51 @@
-import Map, { Marker } from "react-map-gl";
+import Map, { Source, Layer, Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+
+const geojson = {
+  type: "FeatureCollection",
+  features: [
+    {
+      type: "Feature",
+      geometry: { type: "Point", coordinates: [-122.4, 37.8] },
+      properties: {
+        title: "Mapbox DC",
+        "marker-symbol": "monument",
+      },
+    },
+    {
+      type: "Feature",
+      geometry: { type: "Point", coordinates: [-121.4, 37.8] },
+      properties: {
+        title: "Mapbox DC",
+        "marker-symbol": "monument",
+      },
+    },
+  ],
+};
+
+// "geojson-marker": {
+//     "type": "geojson",
+//     "data": {
+//         "type": "Feature",
+//         "geometry": {
+//             "type": "Point",
+//             "coordinates": [-77.0323, 38.9131]
+//         },
+//         "properties": {
+//             "title": "Mapbox DC",
+//             "marker-symbol": "monument"
+//         }
+//     }
+// }
+
+const layerStyle = {
+  id: "point",
+  type: "circle",
+  paint: {
+    "circle-radius": 10,
+    "circle-color": "#007cbf",
+  },
+};
 
 export default function MapView({ activities, trip_id, setActiveActivity }) {
   return (
@@ -15,7 +61,10 @@ export default function MapView({ activities, trip_id, setActiveActivity }) {
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
       dragRotate={false}
     >
-      {activities.map((activity) => {
+      <Source id="my-data" type="geojson" data={geojson}>
+        <Layer {...layerStyle} />
+      </Source>
+      {/* {activities.map((activity) => {
         // console.log(activity);
         const { lat, lng } = activity.location_coordinates;
 
@@ -43,7 +92,7 @@ export default function MapView({ activities, trip_id, setActiveActivity }) {
             </button>
           </Marker>
         );
-      })}
+      })} */}
     </Map>
   );
 }

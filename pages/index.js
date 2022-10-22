@@ -19,7 +19,9 @@ export default function Dashboard(props) {
   const [showModal, setShowModal] = useState(false);
 
   const { user } = props;
-  const { data, error } = useSWR(`/api/trips/`, { initialData: { trips: props.trips } });
+  const { data, error } = useSWR(`/api/trips/`, {
+    initialData: { trips: props.trips },
+  });
 
   useEffect(() => {
     if (!user) router.push("/login");
@@ -29,13 +31,18 @@ export default function Dashboard(props) {
   if (!data) return <div>Loading...</div>;
 
   // const { name, start_date, end_date, description, _id, activities, owner } = data.trips;
-  console.log(props);
+  // console.log(props);
   const { trips } = data;
 
-  const upcomingTrips = trips?.filter(({ start_date }) => isAfterToday(start_date));
-  const completedTrips = trips?.filter(({ end_date }) => isBeforeToday(end_date));
+  const upcomingTrips = trips?.filter(({ start_date }) =>
+    isAfterToday(start_date)
+  );
+  const completedTrips = trips?.filter(({ end_date }) =>
+    isBeforeToday(end_date)
+  );
   const currentTrips = trips?.filter(
-    ({ start_date, end_date }) => isBeforeToday(start_date) && isAfterToday(end_date)
+    ({ start_date, end_date }) =>
+      isBeforeToday(start_date) && isAfterToday(end_date)
   );
 
   return (
@@ -78,9 +85,15 @@ export default function Dashboard(props) {
             <button onClick={() => setShowModal(true)}>Create new trip</button>
           </div>
 
-          {currentTrips.length > 0 && <TripRow title="Current" trips={currentTrips} />}
-          {upcomingTrips.length > 0 && <TripRow title="Upcoming" trips={upcomingTrips} />}
-          {completedTrips.length > 0 && <TripRow title="Completed" trips={completedTrips} />}
+          {currentTrips?.length > 0 && (
+            <TripRow title="Current" trips={currentTrips} />
+          )}
+          {upcomingTrips?.length > 0 && (
+            <TripRow title="Upcoming" trips={upcomingTrips} />
+          )}
+          {completedTrips?.length > 0 && (
+            <TripRow title="Completed" trips={completedTrips} />
+          )}
         </div>
       </div>
     </>
@@ -97,7 +110,7 @@ export async function getServerSideProps({ req }) {
       const shared = await getSharedTrips(user._id);
 
       const trips = [...owned, ...shared];
-      console.log(owned, shared, trips);
+      // console.log(owned, shared, trips);
 
       return { props: { user, trips: JSON.parse(JSON.stringify(trips)) } };
     } else {
